@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+    <meta name="google-site-verification" content="bgS02LV_k5L3NKPpLnPhqLbrCWNAZYwSvc-Vk45i2-Y" />
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=360,initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>yuki0311.com</title>
+    <meta name="description" content="yuki0311.comのホーム">
+    <meta name="keywords" content="diffusion,yuki,pikapika,a810810931931,太鼓さん大次郎,約数の個数計算機">
+    <style>
+        .picturetitle {
+            position: relative;
+        }
+
+        .picturetitle h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            font-family: Times New Roman;
+            letter-spacing: 7px;
+            font-size: 110%;
+        }
+
+        .picturetitle {
+            background: #000;
+        }
+
+        .picturetitle img {
+            display: block;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            opacity: 1;
+            transition: 0.8s;
+        }
+
+        .picturetitle:hover img {
+            opacity: 0.6;
+            transition: 0.8s;
+        }
+
+        .head {
+            position: fixed;
+            background-color: black;
+            width: 100%;
+            height: 40px;
+            top: 0px;
+            left: 0px;
+        }
+
+        .inner {
+            position: fixed;
+            color: white;
+            top: 10px;
+            left: 20px;
+            font-family: Courier New;
+        }
+
+        .body {
+            text-align: center;
+        }
+
+        .error {
+            text-align: center;
+            font-size: 60px;
+            margin: 0;
+            animation-name: fadein;
+            animation-duration: 3s;
+        }
+
+        .object .picturemessage img,
+        .objectbig .picturemessage img {
+            border-radius: 50%;
+            height: 180px;
+            width: 180px;
+            position: relative;
+            transition: 0.8s;
+        }
+
+        .object .picturemessage h2,
+        .objectbig .picturemessage h2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 0;
+            color: #000000;
+            border-bottom: solid 3px #000000;
+            font-family: Times New Roman;
+            letter-spacing: 10px;
+            width: 200px;
+            transition: 0.8s;
+        }
+
+        .object .picturemessage,
+        .objectbig .picturemessage {
+            position: relative;
+        }
+
+        .object:hover .picturemessage img,
+        .objectbig:hover .picturemessage img {
+            opacity: 0.3;
+            height: 190px;
+            width: 190px;
+            transition: 0.8s;
+        }
+
+        .object:hover .picturemessage h2,
+        .objectbig:hover .picturemessage h2 {
+            letter-spacing: 15px;
+            width: 230px;
+            transition: 0.8s;
+            font-size: 120%;
+        }
+
+        .object,
+        .objectbig {
+            transition: 0.8s;
+            margin-left: auto;
+            margin-right: auto;
+            height: 190px;
+            width: 30%;
+            min-width: 190px;
+            max-width: 300px;
+            animation-name: fadein;
+            animation-duration: 3s;
+        }
+
+        .object .text,
+        .objectbig .text {
+            transition: 0.8s;
+            height: -10px;
+            font-size: 0%;
+            opacity: 0.0;
+            font-family: "游ゴシック体", "YuGothic", "游ゴシック Medium", "Yu Gothic Medium";
+        }
+
+        .object:hover {
+            height: 280px;
+            transition: 0.8s;
+            width: 30%;
+            min-width: 190px;
+            max-width: 300px;
+        }
+
+        .objectbig:hover {
+            height: 450px;
+            transition: 0.8s;
+            width: 30%;
+            min-width: 190px;
+            max-width: 300px;
+        }
+
+        .object:hover .text,
+        .objectbig:hover .text {
+            transition: 0.8s;
+            height: 150px;
+            font-size: 100%;
+            width: 100%;
+            opacity: 1.0;
+        }
+
+        .object:hover .text .btn p,
+        .objectbig:hover .text .btn p {
+            transition: 0.3s;
+            font-size: 100%;
+        }
+
+        .btn p {
+            color: black;
+            transition: 0.3s;
+            font-size: 0%;
+        }
+
+        .btn {
+            text-decoration: none;
+        }
+
+        .btn p:hover {
+            transition: 0.3s;
+            position: relative;
+            display: inline-block;
+            padding: 0.25em 0.5em;
+            text-decoration: none;
+            color: blue;
+            background: #ffffff;
+            border: solid 1px #0f9ada;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn p:hover {
+            font-size: 125%;
+            transition: 0.3s;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .fade {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+            animation-name: fadein;
+            animation-duration: 3s;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .margin {
+            margin-bottom: 100px;
+        }
+
+        .margin2 {
+            margin-bottom: 10px;
+        }
+
+        .blinking {
+            -webkit-animation: blink 1.5s ease-in-out infinite alternate;
+            -moz-animation: blink 1.5s ease-in-out infinite alternate;
+            animation: blink 1.5s ease-in-out infinite alternate;
+        }
+
+        @-webkit-keyframes blink {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-moz-keyframes blink {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="picturetitle"><img src="/indexpicture/headpicture.jpg">
+        <h1>yuki0311.com</h1>
+    </div>
+    <div class="margin2"></div>
+    <div class="body">
+        <h3>このツールの説明</h3>
+        <p>このツールを入れるとyoutubeの機能がたくさん増えます</p>
+        <p>詳しくは<a
+                href="https://blog.yuki0311.com/youtube-feature-rich-v1/">https://blog.yuki0311.com/youtube-feature-rich-v1/</a>を確認してください
+        </p>
+        <h3>製作者情報</h3>
+        <div class="objectbig">
+            <div class="picturemessage"> <img src="/indexpicture/headmessage8.png">
+                <h2>GitHub</h2>
+            </div>
+            <div class="text">
+                <p>githubです。初心者です。なのであんまり上げてません。このサイトやこのサイトに載ってるツールは一通りgithubに上げてます。このサイトのデザインを使いたい人はチェックしてみてね。
+                </p>
+                <a href="https://github.com/yukinashi" class="btn">
+                    <p>>サイトに飛ぶ</p>
+                </a>
+            </div>
+        </div>
+        <div class="margin"></div>
+        <div class="object">
+            <div class="picturemessage"> <img src="/indexpicture/headmessage3.jpg">
+                <h2>twitter</h2>
+            </div>
+            <div class="text">
+                <p>twitterアカウントです。クソツイートしかしてません。フォローお願いします。</p>
+                <a href="https://twitter.com/a810810931931" class="btn">
+                    <p>>サイトに飛ぶ</p>
+                </a>
+            </div>
+        </div>
+        <div class="margin"></div>
+        <div class="object">
+            <div class="picturemessage"> <img src="/indexpicture/headmessage4.png">
+                <h2>LINE</h2>
+            </div>
+            <div class="text">
+                <p>LINEアカウントです。お問い合わせ用です。追加は自由ですが用が無いなら無言追加してください。</p>
+                <a href="http://line.me/ti/p/Q29gFDpWry" class="btn">
+                    <p>>サイトに飛ぶ</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="head"></div>
+    <div class="inner">yuki0311.com</div>
+</body>
+
+</html>
