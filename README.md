@@ -3,6 +3,6 @@ youtube配信のchrome拡張機能<br>
 [詳しくはこちら](https://blog.yuki0311.com/youtube-feature-rich-v1/ "詳しくはこちら")
 
 
-#License
+# License
 
 youtube-feature-rich-v1 is under MIT License
