@@ -5,4 +5,4 @@ youtube配信のchrome拡張機能<br>
 
 #License
 
-youtube-easy-to-see-for-chrome-extension is under MIT License
+youtube-feature-rich-v1 is under MIT License
