@@ -4,6 +4,37 @@ var view_count_plus_num = 0, chart_num = 0, view_count_plus_list = [], config = 
 var message_count, last_get_message_id, superchat_count = 0, last_get_superchat_id, last_moderator_id;
 var canvas_flag = {}, canvas_height = {}, content_text_length;
 var one_time_flag = false;
+var reg = /^(\D*)([\d,.]*)/
+// 通貨換算テーブル
+var symbols = {
+  "$": { "rate": 110.0, "code": "USD" },
+  "A$": { "rate": 73.67, "code": "AUD" },
+  "CA$": { "rate": 77, "code": "CAD" },
+  "CHF&nbsp;": { "rate": 113.0, "code": "CHF" },
+  "COP&nbsp;": { "rate": 0.03,  "code": "COP" },
+  "HK$": { "rate": 13.8, "code": "HKD" },
+  "HUF&nbsp;": { "rate": 0.34, "code": "HUF" },
+  "MX$": { "rate": 4.72, "code": "MXN" },
+  "NT$": { "rate": 3, "code": "TWD" },
+  "NZ$": { "rate": 68.86, "code": "NZD" },
+  "PHP&nbsp;": { "rate": 2.14, "code": "PHP" },
+  "PLN&nbsp;": { "rate": 27.01, "code": "PLN" },
+  "R$": { "rate": 20.14, "code": "BRL" },
+  "RUB&nbsp;": { "rate": 1.5, "code": "RUB" },
+  "SEK&nbsp;": { "rate": 11.48, "code": "SEK" },
+  "£": { "rate": 135.0, "code": "GBP" },
+  "₩": { "rate": 0.1, "code": "KRW" },
+  "€": { "rate": 120, "code": "EUR" },
+  "₹": { "rate": 1.42, "code": "INR" },
+  "￥": { "rate": 1.0, "code": "JPY" },
+  "PEN&nbsp;": { "rate": 30.56, "code": "PEN" },
+  "ARS&nbsp;": { "rate": 1.53, "code": "ARS" },
+  "CLP&nbsp;": { "rate": 0.13, "code": "CLP" },
+  "NOK&nbsp;": { "rate": 11.08, "code": "NOK" },
+  "BAM&nbsp;": { "rate": 61.44, "code": "BAM" },
+  "SGD&nbsp;": { "rate": 77.02, "code": "SGD" },
+};
+
 cash_url = location.href;
 /*メインループ実行 */
 page_reload_check();
@@ -73,11 +104,16 @@ function page_reload_check() {
 
     }
     last_get_message_id = $('#chatframe').contents().find('yt-live-chat-text-message-renderer').eq(-1).attr('id');
-    function last_superchat_jpy(num, ratio, superchat_count) {
-        num = /(\d|,)+/.exec(num);
-        num = num[0].replace(/,/g, "");
-        return Number(superchat_count) + (Number(num) * ratio);
+    
+    function calc_superchat_jpy(currency, amount) {
+        if (symbols[currency]) {
+            return Number(amount) * Number(symbols[currency].rate);
+        }
+        // 通貨テーブルに通貨記号が見つからなかった
+        console.log("Undefined currency symbol:"+currency);
+        return 0
     }
+
     /*配信スパチャ */
     i = -1;
     while (true) {
@@ -92,23 +128,10 @@ function page_reload_check() {
             break;
         }
         /*日本円変換 */
-        if (last_superchat.match(/￥/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 1, superchat_count);
-        } else if (last_superchat.match(/₩/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 0.1, superchat_count);
-        } else if (last_superchat.match(/£/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 135, superchat_count);
-        } else if (last_superchat.match(/RUB/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 1.5, superchat_count);
-        } else if (last_superchat.match(/HK/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 13, superchat_count);
-        } else if (last_superchat.match(/NT/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 3, superchat_count);
-        } else if (last_superchat.match(/CA/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 77, superchat_count);
-        } else if (last_superchat.match(/^\$/)) {
-            superchat_count = last_superchat_jpy(last_superchat, 110, superchat_count);
-        }
+        superchat = reg.exec(last_superchat);
+        currency = superchat[1];
+        amount = parseFloat(superchat[2].replace(/,/, ''));
+        superchat_count += calc_superchat_jpy(currency, amount);
         i--;
     }
     last_get_superchat_id = $('#chatframe').contents().find('yt-live-chat-paid-message-renderer').eq(-1).attr('id');
