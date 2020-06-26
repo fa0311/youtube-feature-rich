@@ -1,0 +1,44 @@
+
+        ytd-mini-guide-renderer.ytd-app {
+            top: 0px !important;
+                    }
+                    #guide-spacer.ytd-app {
+                        margin-top: 0px !important;
+                    }
+                #container.ytd-masthead {
+                    padding-left: 72px!important;
+                    }
+            @media (min-width:1313px) {
+                #container.ytd-masthead {
+                padding-left: 250px!important;
+                }
+            }
+
+
+
+            
+        #masthead-container.ytd-app {
+            position: static!important;
+        }
+
+        div#primary {
+            padding-top: 0px!important;
+        }
+
+        ytd-page-manager#page-manager {
+            margin-top: 0px !important;
+        }
+        #container.ytd-masthead {
+            height: auto!important;
+        }
+        ytd-watch-flexy:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy, ytd-watch-flexy:not([theater]):not([fullscreen]) #secondary.ytd-watch-flexy {
+            padding-top: 0px!important;
+        }
+
+        #page-manager.ytd-app {
+            --ytd-toolbar-offset: var(--ytd-masthead-height, 0px)!important;
+        }
+        #background.app-header {
+        top:40px!important;
+        }
+
