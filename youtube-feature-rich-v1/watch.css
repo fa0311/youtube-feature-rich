@@ -2,48 +2,51 @@ canvas.chartjs-render-monitor {
     background: #ffffff;
     max-height: 250px;
     max-width: 400px;
-    display: inline-block!important;
+    display: inline-block !important;
     margin: 5px;
 }
 
-canvas.display_none{
-    display: none!important;
+canvas.display_none {
+    display: none !important;
 }
 
-.canvas_btn{
+.canvas_btn {
     display: inline-block;
-background: rgba(0,0,0,0.1);
-color: #606060;
-font-size: 14px;
-margin:2px;
-padding: 10px 16px;
-border-radius:2px;
-}
-.youtube_live_box{
-    position: relative;
-    top :-10px;
+    background: rgba(0, 0, 0, 0.1);
+    color: #606060;
+    font-size: 14px;
+    margin: 2px;
+    padding: 10px 16px;
+    border-radius: 2px;
 }
 
-.chapter{
+.youtube_live_box {
+    position: relative;
+    top: -10px;
+}
+
+.chapter {
     font-size: 15px;
     position: absolute;
     top: -8px;
 }
 
-.chapter>.arrow{
-position: relative;
-top: 5px;
-right: 7px;
-}
-.chapter-name{
+.chapter>.arrow {
     position: relative;
-    top :-15px;
+    top: 5px;
+    right: 7px;
+}
+
+.chapter-name {
+    position: relative;
+    top: -15px;
 }
 
 .chapter-title {
     position: absolute;
 }
-.chapter-title > p {
+
+.chapter-title>p {
     font-size: 12px;
     position: relative;
     top: -17px;

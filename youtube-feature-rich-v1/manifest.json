@@ -1,25 +1,23 @@
 {
     "name": "YouTubeライブを快適に視聴する！！！",
     "description": "YouTube用の拡張機能です",
-    "version": "1.3",
+    "version": "2.0",
     "manifest_version": 2,
     "browser_action": {
         "default_popup": "index.html"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "https://www.youtube.com/*"
-            ],
-            "js": [
-                "jquery-3.4.1.min.js",
-                "Chart.bundle.js",
-                "axios.js",
-                "watch.js"
-            ],
-            "css": [
-                "watch.css"
-            ]
-        }
-    ]
+    "permissions": ["declarativeContent", "storage"],
+    "content_scripts": [{
+        "matches": [
+            "https://www.youtube.com/*"
+        ],
+        "js": [
+            "jquery-3.4.1.min.js",
+            "Chart.bundle.js",
+            "watch.js"
+        ],
+        "css": [
+            "watch.css"
+        ]
+    }]
 }
