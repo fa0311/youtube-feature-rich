@@ -14,13 +14,13 @@ function page_reload_check() {
         main_loop_count_num++;
         if (main_loop_count_num >= get_wait_time() * 2) {
             main_loop_count_num = 0;
-            setTimeout(watch_main_loop, 0);
+            setTimeout(watch_main_loop);
         } else if (one_time_flag == false) {
-            setTimeout(watch_main_loop, 0);
+            setTimeout(watch_main_loop);
         }
     } else {
         cash_url = location.href;
-        setTimeout(canvas_reset, 0);
+        setTimeout(canvas_reset);
         return;
     }
 
@@ -35,7 +35,6 @@ function page_reload_check() {
     while (true) {
         last_message_id = $('#chatframe').contents().find('yt-live-chat-text-message-renderer').eq(i).attr('id');
         if (last_message_id == null) {
-            message_count = 0;
             break;
         }
         if (last_message_id == last_get_message_id) {
@@ -53,9 +52,9 @@ function page_reload_check() {
             moderator_message = $('#chatframe').contents().find('#author-name.moderator.yt-live-chat-author-chip').eq(-1).parent().parent().parent().find('#message').text();;
             $('#youtube_moderator_message').prepend('<div id="youtube_moderator_message_box" style="font-size: 13px;border-radius: 50%;">' +
                 '<img class="img" alt="" height="24" width="24" src="' + moderator_img + '">' +
-                '<span style="color: rgba(17,17,17,0.4);font-size: 11px;margin:3px;">' + moderator_time + '</span>' +
-                '<span style="color: rgba(17,17,17,0.6);margin:3px;">' + moderator_name + '</span>' +
-                '<p style="color: #111111;">' + moderator_message + '</p>' +
+                '<span class="moderator_time">' + moderator_time + '</span>' +
+                '<span class="moderator_name">' + moderator_name + '</span>' +
+                '<p class="moderator_message">' + moderator_message + '</p>' +
                 "</div>");
 
             if ($("div#youtube_moderator_message_box").eq(5).html() != null) {
@@ -71,7 +70,7 @@ function page_reload_check() {
 
     function calc_superchat_jpy(currency, amount) {
         if (symbols[currency]) {
-            return Number(amount) * Number(symbols[currency].rate);
+            return amount * symbols[currency].rate;
         }
         // 通貨テーブルに通貨記号が見つからなかった
         console.log("Undefined currency symbol:" + currency);
@@ -97,7 +96,7 @@ function page_reload_check() {
         superchat = reg.exec(last_superchat);
         currency = superchat[1];
         amount = parseFloat(superchat[2].replace(/,/, ''));
-        superchat_count += calc_superchat_jpy(currency, amount);
+        superchat_count = Math.round((superchat_count + calc_superchat_jpy(currency, amount)) * 100) / 100;
 
         i--;
     }
@@ -109,6 +108,8 @@ function page_reload_check() {
 function watch_main_loop() {
 
     /*Canvasの初期値 */
+
+
     function config_reset(label) {
         return {
             type: 'line',
@@ -117,7 +118,7 @@ function watch_main_loop() {
                 datasets: [{
                     label: label,
                     data: [],
-                    borderColor: "rgba(255,0,0,1)",
+                    borderColor: get_backgroundColor_code(),
                     backgroundColor: "rgba(0,0,0,0)"
                 }],
             },
@@ -154,6 +155,8 @@ function watch_main_loop() {
             /*1回のみ実行 */
             if (view_count.match(/回視聴/)) {
                 /*もしラアーカイブなら */
+                /*動画時間 */
+                setTimeout(video_length_time_count);
                 /*グラフ */
                 $('ytd-live-chat-frame#chat').after(
                     '<div class="youtube_live_box">' +
@@ -170,14 +173,18 @@ function watch_main_loop() {
                     '</p>' +
                     '<div id="setting_box" style="height:0px;opacity:0;">' +
                     '<p style="font-size:16px;">設定(クリックで変更可)</p>' +
-                    '<p id="set_change1" style="font-size:13px;">グラフ更新間隔<span style="font-size:10px;">(現在<span id="set_numeber1">' +
+                    '<p id="set_change_wait" style="font-size:13px;">グラフ更新間隔<span style="font-size:10px;">(現在<span id="set_numeber_wait">' +
                     get_wait_time() +
                     '</span>秒)</span></p>' +
+                    '<p id="set_change_theme" style="font-size:13px;">テーマ<span style="font-size:10px;">(現在<span id="set_numeber_theme">' +
+                    get_theme() +
+                    '</span>)</span></p>' +
+                    '<p id="set_change_border" style="font-size:13px;">ボーダー<span style="font-size:10px;">(現在<span id="set_numeber_border">' +
+                    get_backgroundColor() +
+                    '</span>)</span></p>' +
+                    '<p id="storage_reset" style="font-size:13px;">リセット</p>' +
                     '</div>' +
                     '</div>');
-
-                var sample = ['5', '10', '15', '20', '25', '30', '60', '120'];
-                $('#set_numeber1').html(sample[set_change1_num]);
 
                 update_notify();
                 var ctx = document.getElementById("myLineChart4");
@@ -206,7 +213,7 @@ function watch_main_loop() {
                             canvas_flag[canvas_num] = false;
                             setTimeout(function () {
                                 $('#myLineChart' + canvas_num).removeClass('display_none');
-                            }, 0);
+                            });
                         } else {
                             canvas_height[canvas_num] = $("canvas#myLineChart" + canvas_num).height();
                             $.Deferred(function (deferredAnim) {
@@ -226,13 +233,10 @@ function watch_main_loop() {
                         }
 
                     });
+                    chrome.storage.sync.set({
+                        'canvas_btn': [canvas_flag, canvas_height]
+                    });
                 }
-
-
-
-
-
-
 
 
                 $('#canvas_btn_del').click(function () {
@@ -287,9 +291,17 @@ function watch_main_loop() {
                     '</p>' +
                     '<div id="setting_box" style="height:0px;opacity:0;">' +
                     '<p style="font-size:16px;">設定(クリックで変更可)</p>' +
-                    '<p id="set_change1" style="font-size:13px;">グラフ更新間隔<span style="font-size:10px;">(現在<span id="set_numeber1">' +
+                    '<p id="set_change_wait" style="font-size:13px;">グラフ更新間隔<span style="font-size:10px;">(現在<span id="set_numeber_wait">' +
                     get_wait_time() +
                     '</span>秒)</span></p>' +
+                    '<p id="set_change_theme" style="font-size:13px;">テーマ<span style="font-size:10px;">(現在<span id="set_numeber_theme">' +
+                    get_theme() +
+                    '</span>)</span></p>' +
+                    '<p id="set_change_border" style="font-size:13px;">ボーダー<span style="font-size:10px;">(現在<span id="set_numeber_border">' +
+                    get_backgroundColor() +
+                    '</span>)</span></p>' +
+
+                    '<p id="storage_reset" style="font-size:13px;">リセット</p>' +
                     '</div>' +
                     '</div>');
 
@@ -336,7 +348,7 @@ function watch_main_loop() {
                             canvas_flag[canvas_num] = false;
                             setTimeout(function () {
                                 $('#myLineChart' + canvas_num).removeClass('display_none');
-                            }, 0);
+                            });
                         } else {
                             canvas_height[canvas_num] = $("canvas#myLineChart" + canvas_num).height();
                             $.Deferred(function (deferredAnim) {
@@ -354,6 +366,9 @@ function watch_main_loop() {
                                 $('#myLineChart' + canvas_num).addClass('display_none');
                             }, 470);
                         }
+                        chrome.storage.sync.set({
+                            'canvas_btn': [canvas_flag, canvas_height]
+                        });
                     });
                 }
                 /*消去ボタン */
@@ -378,6 +393,7 @@ function watch_main_loop() {
                     }
                 });
                 /*ボタンの表示の継承 */
+
                 i = 0;
                 while (i <= 5) {
                     if (i == 0) {
@@ -398,21 +414,92 @@ function watch_main_loop() {
                     i++;
                 }
 
-
             }
-
-
-            $('#set_change1').click(function () {
-                set_change1_num++;
-                if (set_change1_num == 8) {
-                    set_change1_num = 0;
+            /*どっちも */
+            if (set_change_theme == 1) {
+                dark_theme(true);
+            }
+            $('#set_change_wait').click(function () {
+                set_change_wait_num++;
+                if (set_change_wait_num == 8) {
+                    set_change_wait_num = 0;
                 }
                 chrome.storage.sync.set({
-                    'set_change1': set_change1_num
+                    'wait_time': set_change_wait_num
                 });
 
-                $('#set_numeber1').html(get_wait_time());
+                $('#set_numeber_wait').html(get_wait_time());
             });
+            $('#set_change_theme').click(function () {
+                set_change_theme++;
+                if (set_change_theme == 2) {
+                    set_change_theme = 0;
+                }
+                chrome.storage.sync.set({
+                    'theme': set_change_theme
+                });
+
+                if (set_change_theme == 1) {
+                    dark_theme(true);
+                } else {
+                    dark_theme(false);
+                }
+
+                $('#set_numeber_theme').html(get_theme());
+            });
+
+            $('#set_change_border').click(function () {
+                set_change_borderColor++;
+                if (set_change_borderColor == 3) {
+                    set_change_borderColor = 0;
+                }
+                chrome.storage.sync.set({
+                    'border': set_change_borderColor
+                });
+
+                if (!view_count.match(/回視聴/)) {
+                    config.data.datasets[0].borderColor = get_backgroundColor_code();
+                    window.myLineChart.update();
+                    config2.data.datasets[0].borderColor = get_backgroundColor_code();
+                    window.myLineChart2.update();
+                    config3.data.datasets[0].borderColor = get_backgroundColor_code();
+                    window.myLineChart3.update();
+                }
+                config4.data.datasets[0].borderColor = get_backgroundColor_code();
+                window.myLineChart4.update();
+                config5.data.datasets[0].borderColor = get_backgroundColor_code();
+                window.myLineChart5.update();
+
+                $('#set_numeber_border').html(get_backgroundColor());
+
+            });
+
+
+
+
+            $('#storage_reset').click(function () {
+                chrome.storage.sync.set({
+                    'version': null
+                });
+                chrome.storage.sync.set({
+                    'wait_time': null
+                });
+                chrome.storage.sync.set({
+                    'canvas_btn': null
+                });
+                chrome.storage.sync.set({
+                    'theme': null
+                });
+                chrome.storage.sync.set({
+                    'border': null
+                });
+
+                chrome.storage.sync.set({
+                    'wait_time': null
+                });
+                location.reload();
+            });
+
 
             $('#setting').click(function () {
                 if (canvas_flag['setting']) {
@@ -579,7 +666,6 @@ function video_length_time(now = false) {
     }
     return video_time;
 }
-setTimeout(video_length_time_count);
 
 function video_length_time_count() {
     setTimeout(video_length_time_count, 1000);
@@ -626,6 +712,9 @@ function comment_view() {
         if ($(".chapter-title").find(p).text() != $("div[time='" + max_time + "']").attr("title")) {
             $(".chapter-title").remove();
             $("ytd-video-primary-info-renderer.style-scope.ytd-watch-flexy").prepend('<div class="chapter-title"><p>>' + $("div[time='" + max_time + "']").attr("title") + '</p></div>');
+            if (set_change_theme == 1) {
+                dark_theme(true);
+            }
         }
     }
     if ($("yt-formatted-string#content-text").length != content_text_length) {
@@ -750,7 +839,12 @@ function update_notify() {
     var version = "2.0.0";
     chrome.storage.sync.get("version", function (value) {
         if (version != value.version) {
-            $('ytd-live-chat-frame#chat').after('<div style="position: relative; top: -20px;" id="notify_message"><p style="font-size:14px">拡張機能がアップデートされました</p><a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-v1/">詳しくはこちら</a><a style="margin:2px;text-decoration:none;" id="notify_hidden_btn" href="">非表示にする</a></div>');
+
+            if ($('#notify_message').html()) {
+                $("#notify_message").css("display", "none");
+            }
+
+            $('ytd-live-chat-frame#chat').after('<div style="position: relative; top: -20px;" id="notify_message"><p style="font-size:14px">拡張機能がアップデートされました</p><a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-v1/">詳しくはこちら</a><a style="margin:2px;text-decoration:none;" id="notify_hidden_btn">非表示にする</a></div>');
             $('#notify_hidden_btn').click(function () {
                 chrome.storage.sync.set({
                     'version': version
@@ -763,20 +857,89 @@ function update_notify() {
 
 function get_wait_time() {
     var array = ['5', '10', '15', '20', '25', '30', '60', '120'];
-    console.log(array[set_change1_num]);
-    return array[set_change1_num];
+    return array[set_change_wait_num];
 }
 
-setTimeout(get_storage, 500);
+function get_theme() {
+    var array = ['normal', 'dark'];
+    return array[set_change_theme];
+}
+
+
+function get_backgroundColor() {
+    var array = ['normal', 'dark', 'white'];
+    return array[set_change_borderColor];
+}
+
+function get_backgroundColor_code() {
+    var array = ['rgba(255,0,0,1)', 'rgba(0,0,0,1)', 'rgba(255,255,255,1)'];
+    return array[set_change_borderColor];
+}
 
 function get_storage() {
-    chrome.storage.sync.get("set_change1", function (value) {
-        set_change1_num = value.set_change1;
-        if (set_change1_num == null) {
-            set_change1_num = 0;
+    chrome.storage.sync.get("wait_time", function (value) {
+        set_change_wait_num = value.wait_time;
+        if (set_change_wait_num == null) {
+            set_change_wait_num = 0;
+        }
+    });
+
+    chrome.storage.sync.get("theme", function (value) {
+        set_change_theme = value.theme;
+        if (set_change_theme == null) {
+            set_change_theme = 0;
+        }
+    });
+
+    chrome.storage.sync.get("border", function (value) {
+        set_change_borderColor = value.border;
+        if (set_change_borderColor == null) {
+            set_change_borderColor = 0;
+        }
+    });
+
+    chrome.storage.sync.get("canvas_btn", function (value) {
+        canvas_flag = value.canvas_btn[0];
+        canvas_height = value.canvas_btn[1];
+        if (value.canvas_btn == null) {
+            canvas_flag = {};
+            canvas_height = {};
         }
     });
 }
+
+function dark_theme(theme_flag) {
+    i = 0;
+    while (i <= 5) {
+        if (i == 0) {
+            canvas_num = "";
+        } else {
+            canvas_num = i;
+        }
+        if (theme_flag) {
+            $('#canvas_btn' + canvas_num).addClass('dark_theme_btn');
+            $('#myLineChart' + canvas_num).addClass('dark_theme_canvas');
+        } else {
+            $('#canvas_btn' + canvas_num).removeClass('dark_theme_btn');
+            $('#myLineChart' + canvas_num).removeClass('dark_theme_canvas');
+        }
+        i++;
+    }
+    if (theme_flag) {
+        $('#setting').addClass('dark_theme_btn');
+        $('#canvas_btn_del').addClass('dark_theme_btn');
+        $('#setting_box').addClass('dark_theme_text');
+        $('#youtube_moderator_message').addClass('dark_theme_moderator');
+        $('.chapter-title').addClass('dark_theme_text');
+    } else {
+        $('#setting').removeClass('dark_theme_btn');
+        $('#canvas_btn_del').removeClass('dark_theme_btn');
+        $('#setting_box').removeClass('dark_theme_text');
+        $('#youtube_moderator_message').removeClass('dark_theme_moderator');
+        $('.chapter-title').removeClass('dark_theme_text');
+    }
+}
+
 
 /*初期値 */
 var view_count_plus_num = 0,
@@ -784,14 +947,17 @@ var view_count_plus_num = 0,
     view_count_plus_list = [],
     config = {},
     cash_url, main_loop_count_num = 0;
-var message_count, last_get_message_id, superchat_count = 0,
+var message_count = 0,
+    last_get_message_id, superchat_count = 0,
     last_get_superchat_id, last_moderator_id;
 var canvas_flag = {},
     canvas_height = {},
     content_text_length, video_now_time_count, video_time_get_last;
-var set_change1_num;
+var set_change_wait_num, set_change_theme, set_change_borderColor;
 var one_time_flag = false;
 cash_url = location.href;
+
+get_storage();
 
 var reg = /^(\D*)([\d,.]*)/
 // 通貨換算テーブル
@@ -900,4 +1066,8 @@ var symbols = {
         "rate": 77.02,
         "code": "SGD"
     },
+    "CZK&nbsp;": {
+        "rate": 4.49,
+        "code": "CZK"
+    }
 };
