@@ -1,5 +1,5 @@
 # youtube-feature-rich
-youtube配信のchrome拡張機能<br>
+youtube配信のchrome拡張機能 ver2.9<br>
 [詳しくはこちら](https://blog.yuki0311.com/youtube-feature-rich-v1/ "詳しくはこちら")
 
 # Installation
