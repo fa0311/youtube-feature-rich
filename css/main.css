@@ -1,0 +1,40 @@
+.menu-btn {
+    height: 40px;
+    padding: 0 25px;
+    cursor: pointer;
+}
+
+.menu-btn:hover {
+    background-color: #eeeeee;
+}
+
+
+.menu-btn-text {
+    padding: 7px 0;
+}
+
+.menu-btn-text svg {
+    color: #606060;
+    margin-right: 24px;
+}
+
+.menu-btn-text .text {
+    display: inline;
+    position: relative;
+    top: -6px;
+    font-size: 14px;
+    color: rgb(3, 3, 3);
+}
+
+#menu-setting {
+    padding: 0px 25px;
+}
+
+#menu-setting label {
+    font-size: 12px;
+}
+
+#menu-setting p {
+    margin: 10px 0 0 0;
+
+}
