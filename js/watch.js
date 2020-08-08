@@ -141,6 +141,7 @@ function watch_main() {
                     get_backgroundColor() +
                     '</span>)</span></p>' +
                     '<p id="storage_reset" style="font-size:13px;">リセット</p>' +
+                    '<a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-2/"  target="_blank" >詳しくはこちら</a>' +
                     '</div>' +
 
                     '<div style="display:inline-block;vertical-align: top;padding-right: 15px">' +
@@ -321,6 +322,7 @@ function watch_main() {
                     '</span>)</span></p>' +
 
                     '<p id="storage_reset" style="font-size:13px;">リセット</p>' +
+                    '<a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-2/"  target="_blank" >詳しくはこちら</a>' +
 
                     '</div>' +
                     '<div style="display:inline-block;vertical-align: top;padding-right: 15px">' +
@@ -451,6 +453,9 @@ function watch_main() {
                             canvas_type["set"][id] = 0;
                         }
                         $('span#set_chart_type' + id).html(get_chart_type(id));
+                        chrome.storage.sync.set({
+                            'chart_set': canvas_type
+                        });
                     });
                 }
 
@@ -468,6 +473,9 @@ function watch_main() {
                         }
 
                         $('span#set_chart_time' + id).html(get_chart_time(id));
+                        chrome.storage.sync.set({
+                            'chart_set': canvas_type
+                        });
                     });
                 }
 
@@ -724,8 +732,8 @@ function watch_main() {
 
         function get_chart_type(i) {
 
-            var array = ['デフォルト', '新着', '圧縮'];
-            var id = canvas_type["set"][i];
+            let array = ['デフォルト', '新着', '圧縮'];
+            let id = canvas_type["set"][i];
             if (array[id]) {
                 return array[id];
             }
@@ -734,8 +742,8 @@ function watch_main() {
 
         function get_chart_time(i) {
 
-            var array = ['5', '10', '15', '20', '25', '30', '60', '120'];
-            var id = canvas_type["num"][i];
+            let array = ['5', '10', '15', '20', '25', '30', '60', '120'];
+            let id = canvas_type["num"][i];
             if (array[id]) {
                 return array[id];
             }
@@ -1277,9 +1285,11 @@ function setting_btn_set() {
         chrome.storage.sync.set({
             'border': null
         });
-
         chrome.storage.sync.set({
             'wait_time': null
+        });
+        chrome.storage.sync.set({
+            'chart_set': null
         });
         location.reload();
     });
@@ -1303,7 +1313,7 @@ function setting_btn_set() {
             $.Deferred(function (deferredAnim) {
                 deferredAnim.then(function () {
                     $("#setting_box").animate({
-                        "height": "550px",
+                        "height": "300px",
                         "opacity": "1"
                     }, 500);
                     $("#setting").animate({
@@ -1319,7 +1329,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-    var version = "2.0.0";
+    var version = "2.9.1";
     chrome.storage.sync.get("version", function (value) {
         if (version != value.version) {
 
@@ -1392,6 +1402,30 @@ function get_storage() {
         }
         if (canvas_height == null) {
             canvas_height = {};
+        }
+    });
+
+
+
+    chrome.storage.sync.get("chart_set", function (value) {
+        canvas_type = value.chart_set;
+        if (canvas_type == null) {
+            canvas_type = {
+                "set": {
+                    "": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                },
+                "num": {
+                    "": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                }
+            };
         }
     });
 }

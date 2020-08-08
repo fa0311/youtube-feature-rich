@@ -27,8 +27,9 @@ function add_setting_menu() {
             '<p><label for="menu-setting3">コメント欄のタイムスタンプのインポート機能</label><input type="checkbox" id="menu-setting3"></p>' +
             '<p><label for="menu-setting4">概要欄にtwitterを埋め込む機能</label><input type="checkbox" id="menu-setting4"></p>' +
             '<p><label for="menu-setting5">登録チャンネルの検索機能</splabelan><input type="checkbox" id="menu-setting5"></p>' +
-            '<button type="button" style="margin:5px 0;" id="menu-save">保存する</button>' +
-            '<p style="margin:2px 0;">ページをリロードすると反映します</p>' +
+            '<p>ページをリロードすると反映します</p>' +
+            '<button type="button" style="margin:10px 10px 0 0;" id="menu-save">設定を保存</button>' +
+            '<a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-2/"  target="_blank" >詳しくはこちら</a>' +
             '</div>'
         );
 
@@ -55,7 +56,7 @@ function add_setting_menu() {
             } else {
                 canvas_flag['main_setting'] = true;
                 $("#menu-setting").animate({
-                    "height": "230px",
+                    "height": "250px",
                     "opacity": "1"
                 }, 500);
                 $("#menu-setting").css({
@@ -78,10 +79,10 @@ function add_setting_menu() {
                 chrome.storage.sync.set({
                     'menu_set': menu_set
                 });
-                $('#menu-save').text('設定しました');
+                $('#menu-save').text('設定を保存しました');
                 setTimeout(
                     function () {
-                        $('#menu-save').text('設定する')
+                        $('#menu-save').text('設定を保存する')
                     }, 1000);
             });
 
@@ -263,24 +264,8 @@ var symbols = {
         "code": "BYN"
     }
 };
-
-canvas_type = {
-    "set": {
-        "": 0,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-    },
-    "num": {
-        "": 0,
-        "2": 0,
-        "3": 0,
-        "4": 0,
-        "5": 0,
-    }
-};
-canvas_wait = {
+var canvas_type;
+var canvas_wait = {
     "max": {
         "": 1,
         "2": 1,
