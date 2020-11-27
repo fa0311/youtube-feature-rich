@@ -59,6 +59,11 @@ function watch_main() {
         if (one_time_flag == false) {
             one_time_flag = true;
             twitter_view();
+
+            $('ytd-live-chat-frame#chat').after('<div class="youtube_live_box">' +
+                '<div id="youtube_moderator_message">' +
+                '</div>' +
+                '</div>');
         }
         return;
     }
@@ -1329,7 +1334,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-    var version = "2.9.1";
+    var version = "3.0.1";
     chrome.storage.sync.get("version", function (value) {
         if (version != value.version) {
 
@@ -1337,7 +1342,7 @@ function update_notify() {
                 $("#notify_message").css("display", "none");
             }
 
-            $('ytd-live-chat-frame#chat').after('<div style="position: relative; top: -20px;" id="notify_message"><p style="font-size:14px">拡張機能がアップデートされました</p><a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-v1/"  target="_blank" >詳しくはこちら</a><a style="margin:2px;text-decoration:none;" id="notify_hidden_btn">非表示にする</a></div>');
+            $('ytd-live-chat-frame#chat').after('<div style="position: relative; top: -20px;" id="notify_message"><p style="font-size:14px">拡張機能がアップデートされました</p><p style="font-size:14px">設定がリセットされた可能性があります</p><a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-v1/"  target="_blank" >詳しくはこちら</a><a style="margin:2px;text-decoration:none;" id="notify_hidden_btn">非表示にする</a></div>');
             $('#notify_hidden_btn').click(function () {
                 chrome.storage.sync.set({
                     'version': version
