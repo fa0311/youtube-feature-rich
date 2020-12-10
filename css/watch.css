@@ -40,11 +40,12 @@ canvas.display_none {
 }
 
 
+/*
 .chapter-name {
     position: relative;
     top: -15px;
 }
-
+*/
 
 .chapter-title {
     position: absolute;
@@ -62,7 +63,6 @@ canvas.display_none {
     margin: 3px;
 }
 
-
 .moderator_name {
     color: rgba(17, 17, 17, 0.6);
     margin: 3px;
@@ -71,7 +71,6 @@ canvas.display_none {
 .moderator_message {
     color: #111111;
 }
-
 
 #setting_box>p:nth-of-type(n+2) {
     cursor: pointer;
@@ -83,6 +82,7 @@ canvas.display_none {
 
 
 /*ダークテーマ*/
+
 .dark_theme_canvas {
     background-color: #333333 !important;
 }
@@ -108,7 +108,9 @@ canvas.display_none {
     color: #ffffff !important;
 }
 
+
 /*Twitter*/
+
 .twitter_view {
     margin-left: auto;
     margin-right: auto;

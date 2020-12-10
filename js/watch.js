@@ -185,10 +185,10 @@ function watch_main() {
                 btn_click_set(5);
 
                 function btn_click_set(canvas_num) {
-                    $('#canvas_btn' + canvas_num).click(function () {
+                    $('#canvas_btn' + canvas_num).click(function() {
                         if (canvas_flag[canvas_num]) {
-                            $.Deferred(function (deferredAnim) {
-                                deferredAnim.then(function () {
+                            $.Deferred(function(deferredAnim) {
+                                deferredAnim.then(function() {
                                     $("#myLineChart" + canvas_num).animate({
                                         "height": canvas_height[canvas_num]
                                     }, 500);
@@ -198,13 +198,13 @@ function watch_main() {
                                 })
                             }).resolve();
                             canvas_flag[canvas_num] = false;
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 $('#myLineChart' + canvas_num).removeClass('display_none');
                             });
                         } else {
                             canvas_height[canvas_num] = $("canvas#myLineChart" + canvas_num).height();
-                            $.Deferred(function (deferredAnim) {
-                                deferredAnim.then(function () {
+                            $.Deferred(function(deferredAnim) {
+                                deferredAnim.then(function() {
                                     $("#myLineChart" + canvas_num).animate({
                                         "height": "0"
                                     }, 500);
@@ -214,7 +214,7 @@ function watch_main() {
                                 })
                             }).resolve();
                             canvas_flag[canvas_num] = true;
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 $('#myLineChart' + canvas_num).addClass('display_none');
                             }, 470);
                         }
@@ -234,7 +234,7 @@ function watch_main() {
                 set_chart_type_btn("5");
 
                 function set_chart_type_btn(id) {
-                    $('p#set_chart_type' + id).click(function () {
+                    $('p#set_chart_type' + id).click(function() {
                         canvas_type["set"][id]++;
                         if (canvas_type["set"][id] > 2) {
                             canvas_type["set"][id] = 0;
@@ -250,7 +250,7 @@ function watch_main() {
                 set_chart_time_btn("5");
 
                 function set_chart_time_btn(id) {
-                    $('p#set_chart_time' + id).click(function () {
+                    $('p#set_chart_time' + id).click(function() {
                         canvas_type["num"][id]++;
                         if (canvas_type["num"][id] > 8) {
                             canvas_type["num"][id] = 0;
@@ -265,7 +265,7 @@ function watch_main() {
 
 
 
-                $('#canvas_btn_del').click(function () {
+                $('#canvas_btn_del').click(function() {
 
                     if ($(".youtube_live_box").html() != null) {
                         window.myLineChart4.destroy();
@@ -405,10 +405,10 @@ function watch_main() {
                 btn_click_set(5);
 
                 function btn_click_set(canvas_num) {
-                    $('#canvas_btn' + canvas_num).click(function () {
+                    $('#canvas_btn' + canvas_num).click(function() {
                         if (canvas_flag[canvas_num]) {
-                            $.Deferred(function (deferredAnim) {
-                                deferredAnim.then(function () {
+                            $.Deferred(function(deferredAnim) {
+                                deferredAnim.then(function() {
                                     $("#myLineChart" + canvas_num).animate({
                                         "height": canvas_height[canvas_num]
                                     }, 500);
@@ -418,13 +418,13 @@ function watch_main() {
                                 })
                             }).resolve();
                             canvas_flag[canvas_num] = false;
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 $('#myLineChart' + canvas_num).removeClass('display_none');
                             });
                         } else {
                             canvas_height[canvas_num] = $("canvas#myLineChart" + canvas_num).height();
-                            $.Deferred(function (deferredAnim) {
-                                deferredAnim.then(function () {
+                            $.Deferred(function(deferredAnim) {
+                                deferredAnim.then(function() {
                                     $("#myLineChart" + canvas_num).animate({
                                         "height": "0"
                                     }, 500);
@@ -434,7 +434,7 @@ function watch_main() {
                                 })
                             }).resolve();
                             canvas_flag[canvas_num] = true;
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 $('#myLineChart' + canvas_num).addClass('display_none');
                             }, 470);
                         }
@@ -452,7 +452,7 @@ function watch_main() {
                 set_chart_type_btn("5");
 
                 function set_chart_type_btn(id) {
-                    $('p#set_chart_type' + id).click(function () {
+                    $('p#set_chart_type' + id).click(function() {
                         canvas_type["set"][id]++;
                         if (canvas_type["set"][id] > 2) {
                             canvas_type["set"][id] = 0;
@@ -471,7 +471,7 @@ function watch_main() {
                 set_chart_time_btn("5");
 
                 function set_chart_time_btn(id) {
-                    $('p#set_chart_time' + id).click(function () {
+                    $('p#set_chart_time' + id).click(function() {
                         canvas_type["num"][id]++;
                         if (canvas_type["num"][id] > 8) {
                             canvas_type["num"][id] = 0;
@@ -486,7 +486,7 @@ function watch_main() {
 
 
                 /*消去ボタン */
-                $('#canvas_btn_del').click(function () {
+                $('#canvas_btn_del').click(function() {
 
                     if ($(".youtube_live_box").html() != null) {
                         window.myLineChart.destroy();
@@ -568,11 +568,11 @@ function watch_main() {
 
             if (canvas_type["set"][""] == 1) {
                 config.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config.data.datasets.forEach(function (dataset) {
+                config.data.datasets.forEach(function(dataset) {
                     dataset.data.push(result);
                 });
 
-                config.data.datasets.forEach(function (dataset) {
+                config.data.datasets.forEach(function(dataset) {
                     while (dataset.data.length > get_chart_time(canvas_type["num"][""])) {
                         dataset.data.shift();
                         config.data.labels.shift();
@@ -583,14 +583,14 @@ function watch_main() {
                 if (canvas_wait["max"][""] - 1 <= canvas_wait["count"][""]) {
                     canvas_wait["count"][""] = 0;
                     config.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                    config.data.datasets.forEach(function (dataset) {
+                    config.data.datasets.forEach(function(dataset) {
                         dataset.data.push(result);
                     });
                     window.myLineChart.update();
                 } else {
                     canvas_wait["count"][""]++;
                 }
-                config.data.datasets.forEach(function (dataset) {
+                config.data.datasets.forEach(function(dataset) {
                     if (dataset.data.length > get_chart_time(canvas_type["num"][""]) && dataset.data.length % 2 == 1) {
                         ii = dataset.data.length / 2;
                         i = 1;
@@ -605,7 +605,7 @@ function watch_main() {
                 });
             } else {
                 config.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config.data.datasets.forEach(function (dataset) {
+                config.data.datasets.forEach(function(dataset) {
                     dataset.data.push(result);
                 });
                 window.myLineChart.update();
@@ -614,7 +614,7 @@ function watch_main() {
 
             if (canvas_type["set"]["2"] == 1) {
                 config2.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config2.data.datasets.forEach(function (dataset) {
+                config2.data.datasets.forEach(function(dataset) {
                     if (like.match(/万/)) {
                         like = like.replace(/万/g, "");
                         dataset.data.push(like * 10000);
@@ -622,7 +622,7 @@ function watch_main() {
                         dataset.data.push(like);
                     }
                 });
-                config2.data.datasets.forEach(function (dataset) {
+                config2.data.datasets.forEach(function(dataset) {
                     while (dataset.data.length > get_chart_time(canvas_type["num"]["2"])) {
                         dataset.data.shift();
                         config2.data.labels.shift();
@@ -634,7 +634,7 @@ function watch_main() {
                 if (canvas_wait["max"][2] - 1 <= canvas_wait["count"][2]) {
                     canvas_wait["count"][2] = 0;
                     config2.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                    config2.data.datasets.forEach(function (dataset) {
+                    config2.data.datasets.forEach(function(dataset) {
                         if (like.match(/万/)) {
                             like = like.replace(/万/g, "");
                             dataset.data.push(like * 10000);
@@ -646,7 +646,7 @@ function watch_main() {
                 } else {
                     canvas_wait["count"]["2"]++;
                 }
-                config2.data.datasets.forEach(function (dataset) {
+                config2.data.datasets.forEach(function(dataset) {
                     if (dataset.data.length > get_chart_time(canvas_type["num"]["2"]) && dataset.data.length % 2 == 1) {
                         ii = dataset.data.length / 2;
                         i = 1;
@@ -661,7 +661,7 @@ function watch_main() {
                 });
             } else {
                 config2.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config2.data.datasets.forEach(function (dataset) {
+                config2.data.datasets.forEach(function(dataset) {
                     if (like.match(/万/)) {
                         like = like.replace(/万/g, "");
                         dataset.data.push(like * 10000);
@@ -674,7 +674,7 @@ function watch_main() {
 
             if (canvas_type["set"]["3"] == 1) {
                 config3.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config3.data.datasets.forEach(function (dataset) {
+                config3.data.datasets.forEach(function(dataset) {
                     if (bad.match(/万/)) {
                         bad = bad.replace(/万/g, "");
                         dataset.data.push(bad * 10000);
@@ -682,7 +682,7 @@ function watch_main() {
                         dataset.data.push(bad);
                     }
                 });
-                config3.data.datasets.forEach(function (dataset) {
+                config3.data.datasets.forEach(function(dataset) {
                     while (dataset.data.length > get_chart_time(canvas_type["num"]["3"])) {
                         dataset.data.shift();
                         config3.data.labels.shift();
@@ -693,7 +693,7 @@ function watch_main() {
                 if (canvas_wait["max"][3] - 1 <= canvas_wait["count"][3]) {
                     canvas_wait["count"][3] = 0;
                     config3.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                    config3.data.datasets.forEach(function (dataset) {
+                    config3.data.datasets.forEach(function(dataset) {
                         if (bad.match(/万/)) {
                             bad = bad.replace(/万/g, "");
                             dataset.data.push(bad * 10000);
@@ -705,7 +705,7 @@ function watch_main() {
                 } else {
                     canvas_wait["count"]["3"]++;
                 }
-                config3.data.datasets.forEach(function (dataset) {
+                config3.data.datasets.forEach(function(dataset) {
                     if (dataset.data.length > get_chart_time(canvas_type["num"]["3"]) && dataset.data.length % 2 == 1) {
                         ii = dataset.data.length / 2;
                         i = 1;
@@ -720,7 +720,7 @@ function watch_main() {
                 });
             } else {
                 config3.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config3.data.datasets.forEach(function (dataset) {
+                config3.data.datasets.forEach(function(dataset) {
                     if (bad.match(/万/)) {
                         bad = bad.replace(/万/g, "");
                         dataset.data.push(bad * 10000);
@@ -758,10 +758,10 @@ function watch_main() {
 
         if (canvas_type["set"]["4"] == 1) {
             config4.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-            config4.data.datasets.forEach(function (dataset) {
+            config4.data.datasets.forEach(function(dataset) {
                 dataset.data.push(message_count);
             });
-            config4.data.datasets.forEach(function (dataset) {
+            config4.data.datasets.forEach(function(dataset) {
                 while (dataset.data.length > get_chart_time(canvas_type["num"]["4"])) {
                     dataset.data.shift();
                     config4.data.labels.shift();
@@ -772,14 +772,14 @@ function watch_main() {
             if (canvas_wait["max"][4] - 1 <= canvas_wait["count"][4]) {
                 canvas_wait["count"][4] = 0;
                 config4.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config4.data.datasets.forEach(function (dataset) {
+                config4.data.datasets.forEach(function(dataset) {
                     dataset.data.push(message_count);
                 });
                 window.myLineChart4.update();
             } else {
                 canvas_wait["count"]["4"]++;
             }
-            config4.data.datasets.forEach(function (dataset) {
+            config4.data.datasets.forEach(function(dataset) {
                 if (dataset.data.length > get_chart_time(canvas_type["num"]["4"]) && dataset.data.length % 2 == 1) {
                     ii = dataset.data.length / 2;
                     i = 1;
@@ -794,7 +794,7 @@ function watch_main() {
             });
         } else {
             config4.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-            config4.data.datasets.forEach(function (dataset) {
+            config4.data.datasets.forEach(function(dataset) {
                 dataset.data.push(message_count);
             });
             window.myLineChart4.update();
@@ -803,10 +803,10 @@ function watch_main() {
 
         if (canvas_type["set"]["5"] == 1) {
             config5.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-            config5.data.datasets.forEach(function (dataset) {
+            config5.data.datasets.forEach(function(dataset) {
                 dataset.data.push(superchat_count);
             });
-            config5.data.datasets.forEach(function (dataset) {
+            config5.data.datasets.forEach(function(dataset) {
                 while (dataset.data.length > get_chart_time(canvas_type["num"]["5"])) {
                     dataset.data.shift();
                     config5.data.labels.shift();
@@ -818,14 +818,14 @@ function watch_main() {
             if (canvas_wait["max"][5] - 1 <= canvas_wait["count"][5]) {
                 canvas_wait["count"][5] = 0;
                 config5.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-                config5.data.datasets.forEach(function (dataset) {
+                config5.data.datasets.forEach(function(dataset) {
                     dataset.data.push(superchat_count);
                 });
                 window.myLineChart5.update();
             } else {
                 canvas_wait["count"]["5"]++;
             }
-            config5.data.datasets.forEach(function (dataset) {
+            config5.data.datasets.forEach(function(dataset) {
                 if (dataset.data.length > get_chart_time(canvas_type["num"]["5"]) && dataset.data.length % 2 == 1) {
                     ii = dataset.data.length / 2;
                     i = 1;
@@ -840,7 +840,7 @@ function watch_main() {
             });
         } else {
             config5.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
-            config5.data.datasets.forEach(function (dataset) {
+            config5.data.datasets.forEach(function(dataset) {
                 dataset.data.push(superchat_count);
             });
             window.myLineChart5.update();
@@ -946,7 +946,7 @@ function canvas_reset() {
     $(".ytp-progress-bar-padding").empty();
     $(".chapter-title").remove();
 
-    $("a#import_btn").each(function () {
+    $("a#import_btn").each(function() {
         $("a#import_btn").remove();
     });
 
@@ -1016,7 +1016,7 @@ function comment_view() {
 
         i = 0;
         max_time = 0;
-        $(".ytp-progress-bar-padding").find(".chapter").each(function () {
+        $(".ytp-progress-bar-padding").find(".chapter").each(function() {
             time = Number($(".ytp-progress-bar-padding").find(".chapter").eq(i).attr("time"));
             if (time < video_length_time(true) + 2) {
                 if (time > max_time) {
@@ -1040,7 +1040,7 @@ function comment_view() {
             content_text_length = $("yt-formatted-string#content-text").length;
 
             i = 0;
-            $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").each(function () {
+            $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").each(function() {
                 if ($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(0).html() != null) {
 
                     if ($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).parent().parent().parent().find("div#header-author").find("#import_btn").html() == null) {
@@ -1052,9 +1052,9 @@ function comment_view() {
 
                         function import_btn_click_set(i) {
                             $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).parent().parent().parent().find("div#header-author").find('a').click(
-                                function () {
+                                function() {
                                     ii = 0;
-                                    $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function () {
+                                    $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function() {
                                         if ($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(ii).html() != null) {
                                             url = $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(ii).attr("href");
                                             var time = /(\d+)s$/.exec(url)[1];
@@ -1067,10 +1067,10 @@ function comment_view() {
 
                                             function chapter_arrow_btn_hover_set(name) {
                                                 $('.ytp-progress-bar-padding').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(
-                                                    function () {
+                                                    function() {
                                                         $(".ytp-left-controls").append('<span class="chapter-name">' + name + '</span>');
                                                     },
-                                                    function () {
+                                                    function() {
                                                         $(".ytp-left-controls").find('.chapter-name').remove();
                                                     }
                                                 );
@@ -1086,12 +1086,12 @@ function comment_view() {
                 ii = 0;
 
 
-                $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").each(function () {
+                $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").each(function() {
                     if ($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(0).html() != null) {
                         if ($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).parent().parent().parent().find("div#header-author").find("#import_btn").html() == null) {
                             iii = 0;
                             flag = false;
-                            $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function () {
+                            $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function() {
 
                                 url = $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).attr("href");
                                 if (url != null) {
@@ -1113,9 +1113,9 @@ function comment_view() {
 
                                 $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).parent().parent().parent().find("div#header-author").find('a#import_btn').click(
 
-                                    function () {
+                                    function() {
                                         iii = 0;
-                                        $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function () {
+                                        $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function() {
 
                                             if ($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).html() != null) {
 
@@ -1132,10 +1132,10 @@ function comment_view() {
 
                                                 function chapter_arrow_btn_hover_set(name) {
                                                     $('.ytp-progress-bar-padding').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(
-                                                        function () {
+                                                        function() {
                                                             $(".ytp-left-controls").append('<span class="chapter-name">' + name + '</span>');
                                                         },
-                                                        function () {
+                                                        function() {
                                                             $(".ytp-left-controls").find('.chapter-name').remove();
                                                         }
                                                     );
@@ -1161,12 +1161,12 @@ function twitter_view(twitter_page = 0) {
         /*Twitter */
         i = 0;
         ii = 0;
-        $("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").each(function () {
+        $("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").each(function() {
 
             if ($("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").eq(i).text().match(/\/\/twitter.com\/[^\/]+\/?$/)) {
 
                 if (twitter_page == ii) {
-                    $('div#top-row').after('<div class="twitter_view" page="' + ii + '"><a data-height="400" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
+                    $('#container > div#top-row').after('<div class="twitter_view" page="' + ii + '"><a data-height="400" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
                         $("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").eq(i).text() +
                         '></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
                     setTimeout(twitter_load_check, 100);
@@ -1174,16 +1174,16 @@ function twitter_view(twitter_page = 0) {
 
                     function twitter_load_check() {
                         if ($('.twitter_view>iframe').contents().find('footer.timeline-Footer.u-cf>a.u-floatLeft').text()) {
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 $('.twitter_view>iframe').contents().find('footer.timeline-Footer.u-cf>a.u-floatLeft').after('<a id="twitter_next" style="position: relative;left: 20px;cursor: pointer;">次のページ</div></div>');
                                 $('.twitter_view>iframe').contents().find('footer.timeline-Footer.u-cf>a.u-floatLeft').after('<a id="twitter_reload" style="position: relative;left: 10px;cursor: pointer;">再読み込み</div></div>');
 
-                                $('.twitter_view>iframe').contents().find('a#twitter_reload').click(function () {
+                                $('.twitter_view>iframe').contents().find('a#twitter_reload').click(function() {
                                     var twitter_page = $(".twitter_view").attr("page");
                                     $(".twitter_view").remove();
                                     twitter_view(twitter_page);
                                 });
-                                $('.twitter_view>iframe').contents().find('a#twitter_next').click(function () {
+                                $('.twitter_view>iframe').contents().find('a#twitter_next').click(function() {
                                     var twitter_page = $(".twitter_view").attr("page") + 1;
                                     $(".twitter_view").remove();
                                     twitter_view(twitter_page);
@@ -1216,7 +1216,7 @@ function twitter_view(twitter_page = 0) {
 
 function setting_btn_set() {
 
-    $('#set_change_wait').click(function () {
+    $('#set_change_wait').click(function() {
         set_change_wait_num++;
         if (set_change_wait_num == 8) {
             set_change_wait_num = 0;
@@ -1228,7 +1228,7 @@ function setting_btn_set() {
             'wait_time': set_change_wait_num
         });
     });
-    $('#set_change_theme').click(function () {
+    $('#set_change_theme').click(function() {
         set_change_theme++;
         if (set_change_theme == 2) {
             set_change_theme = 0;
@@ -1247,7 +1247,7 @@ function setting_btn_set() {
         });
     });
 
-    $('#set_change_border').click(function () {
+    $('#set_change_border').click(function() {
         set_change_borderColor++;
         if (set_change_borderColor == 3) {
             set_change_borderColor = 0;
@@ -1277,7 +1277,7 @@ function setting_btn_set() {
 
 
 
-    $('#storage_reset').click(function () {
+    $('#storage_reset').click(function() {
         chrome.storage.sync.set({
             'wait_time': null
         });
@@ -1300,10 +1300,10 @@ function setting_btn_set() {
     });
 
 
-    $('#setting').click(function () {
+    $('#setting').click(function() {
         if (canvas_flag['setting']) {
-            $.Deferred(function (deferredAnim) {
-                deferredAnim.then(function () {
+            $.Deferred(function(deferredAnim) {
+                deferredAnim.then(function() {
                     $("#setting_box").animate({
                         "height": "0px",
                         "opacity": "0"
@@ -1315,8 +1315,8 @@ function setting_btn_set() {
             }).resolve();
             canvas_flag["setting"] = false;
         } else {
-            $.Deferred(function (deferredAnim) {
-                deferredAnim.then(function () {
+            $.Deferred(function(deferredAnim) {
+                deferredAnim.then(function() {
                     $("#setting_box").animate({
                         "height": "300px",
                         "opacity": "1"
@@ -1335,7 +1335,7 @@ function setting_btn_set() {
 // アプデ確認
 function update_notify() {
     var version = "3.0.1";
-    chrome.storage.sync.get("version", function (value) {
+    chrome.storage.sync.get("version", function(value) {
         if (version != value.version) {
 
             if ($('#notify_message').html()) {
@@ -1343,7 +1343,7 @@ function update_notify() {
             }
 
             $('ytd-live-chat-frame#chat').after('<div style="position: relative; top: -20px;" id="notify_message"><p style="font-size:14px">拡張機能がアップデートされました</p><p style="font-size:14px">設定がリセットされた可能性があります</p><a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-v1/"  target="_blank" >詳しくはこちら</a><a style="margin:2px;text-decoration:none;" id="notify_hidden_btn">非表示にする</a></div>');
-            $('#notify_hidden_btn').click(function () {
+            $('#notify_hidden_btn').click(function() {
                 chrome.storage.sync.set({
                     'version': version
                 });
@@ -1378,28 +1378,28 @@ function get_backgroundColor_code() {
 }
 
 function get_storage() {
-    chrome.storage.sync.get("wait_time", function (value) {
+    chrome.storage.sync.get("wait_time", function(value) {
         set_change_wait_num = value.wait_time;
         if (set_change_wait_num == null) {
             set_change_wait_num = 0;
         }
     });
 
-    chrome.storage.sync.get("theme", function (value) {
+    chrome.storage.sync.get("theme", function(value) {
         set_change_theme = value.theme;
         if (set_change_theme == null) {
             set_change_theme = 0;
         }
     });
 
-    chrome.storage.sync.get("border", function (value) {
+    chrome.storage.sync.get("border", function(value) {
         set_change_borderColor = value.border;
         if (set_change_borderColor == null) {
             set_change_borderColor = 0;
         }
     });
 
-    chrome.storage.sync.get("canvas_btn", function (value) {
+    chrome.storage.sync.get("canvas_btn", function(value) {
         canvas_flag = value.canvas_btn[0];
         canvas_height = value.canvas_btn[1];
         if (canvas_flag == null) {
@@ -1412,7 +1412,7 @@ function get_storage() {
 
 
 
-    chrome.storage.sync.get("chart_set", function (value) {
+    chrome.storage.sync.get("chart_set", function(value) {
         canvas_type = value.chart_set;
         if (canvas_type == null) {
             canvas_type = {
