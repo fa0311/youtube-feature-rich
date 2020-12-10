@@ -25,7 +25,7 @@ function watch_main_loop() {
     } else {
         /*ページがリロードされたなら */
         cash_url = location.href;
-        setTimeout(canvas_reset); //すべてリセット
+        canvas_reset(); //すべてリセット
         setTimeout(page_live_check); //ページがwatchになったらpage_load_checkを実行する
         return;
     }
@@ -43,7 +43,7 @@ function watch_normal_video() {
         $('ytd-live-chat-frame#chat').after(
             '<div class="youtube_live_box">' +
             '<div class="canvas_btn" style="opacity:1" id="setting">設定</div>');
-        twitter_view();
+        setTimeout(twitter_view, 500);
         update_notify();
         setting_btn_set();
         if (set_change_theme == 1) {
@@ -58,7 +58,7 @@ function watch_main() {
     if (!menu_set[1]) {
         if (one_time_flag == false) {
             one_time_flag = true;
-            twitter_view();
+            setTimeout(twitter_view, 500);
 
             $('ytd-live-chat-frame#chat').after('<div class="youtube_live_box">' +
                 '<div id="youtube_moderator_message">' +
@@ -530,7 +530,7 @@ function watch_main() {
 
             }
             /*どっちも */
-            twitter_view();
+            setTimeout(twitter_view, 500);
             update_notify();
             setting_btn_set();
 
@@ -1204,7 +1204,7 @@ function twitter_view(twitter_page = 0) {
             return;
         }
         if (twitter_page >= ii) {
-            twitter_view();
+            setTimeout(twitter_view, 500);
         }
 
     }
@@ -1334,7 +1334,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-    var version = "3.0.1";
+    var version = "3.1.1";
     chrome.storage.sync.get("version", function(value) {
         if (version != value.version) {
 
@@ -1469,5 +1469,5 @@ function dark_theme(theme_flag) {
         $('#notify_message').removeClass('dark_theme_text');
     }
     $(".twitter_view").remove();
-    twitter_view(0);
+    setTimeout(twitter_view, 500);
 }
