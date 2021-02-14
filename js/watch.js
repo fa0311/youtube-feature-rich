@@ -1318,7 +1318,7 @@ function setting_btn_set() {
             $.Deferred(function(deferredAnim) {
                 deferredAnim.then(function() {
                     $("#setting_box").animate({
-                        "height": "300px",
+                        "height": "320px",
                         "opacity": "1"
                     }, 500);
                     $("#setting").animate({
@@ -1334,7 +1334,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-    var version = "3.1.1";
+    var version = "3.1.2";
     $('#notify_message').remove();
     chrome.storage.sync.get("version", function(value) {
         if (version != value.version) {

@@ -3,7 +3,7 @@ setTimeout(page_live_check, 1000); //page_load_checkを実行する
 
 setTimeout(add_setting_menu, 1000);
 
-chrome.storage.sync.get("menu_set", function (value) {
+chrome.storage.sync.get("menu_set", function(value) {
     menu_set = value.menu_set;
     if (menu_set == null) {
         menu_set = [0, true, true, true, true, true]
@@ -38,7 +38,7 @@ function add_setting_menu() {
             "height": "0px",
             "opacity": "0"
         });
-        $('.menu-btn').click(function () {
+        $('.menu-btn').click(function() {
 
             if (canvas_flag['main_setting']) {
                 canvas_flag['main_setting'] = false;
@@ -47,7 +47,7 @@ function add_setting_menu() {
                     "opacity": "0"
                 }, 500);
 
-                setTimeout(function () {
+                setTimeout(function() {
                     $("#menu-setting").css({
                         "display": "none"
                     });
@@ -70,7 +70,7 @@ function add_setting_menu() {
                 i++;
             }
 
-            $('#menu-save').click(function () {
+            $('#menu-save').click(function() {
                 let i = 1;
                 while (i <= 5) {
                     menu_set[i] = $('#menu-setting' + i).prop('checked');
@@ -81,26 +81,13 @@ function add_setting_menu() {
                 });
                 $('#menu-save').text('設定を保存しました');
                 setTimeout(
-                    function () {
+                    function() {
                         $('#menu-save').text('設定を保存する')
                     }, 1000);
             });
-
         });
-
-
-
-
-
-
     }
-
 }
-
-
-
-
-
 /*動画の以外のページのときの処理*/
 function page_live_check() {
     if (location.href.match(/watch/)) {
@@ -139,131 +126,7 @@ cash_url = location.href;
 var menu_set = [];
 var storage_check_flag;
 
-
 var reg = /^(\D*)([\d,.]*)/
-// 通貨換算テーブル
-var symbols = {
-    "$": {
-        "rate": 110.0,
-        "code": "USD"
-    },
-    "A$": {
-        "rate": 73.67,
-        "code": "AUD"
-    },
-    "CA$": {
-        "rate": 77,
-        "code": "CAD"
-    },
-    "CHF&nbsp;": {
-        "rate": 113.0,
-        "code": "CHF"
-    },
-    "COP&nbsp;": {
-        "rate": 0.03,
-        "code": "COP"
-    },
-    "HK$": {
-        "rate": 13.8,
-        "code": "HKD"
-    },
-    "HUF&nbsp;": {
-        "rate": 0.34,
-        "code": "HUF"
-    },
-    "MX$": {
-        "rate": 4.72,
-        "code": "MXN"
-    },
-    "NT$": {
-        "rate": 3,
-        "code": "TWD"
-    },
-    "NZ$": {
-        "rate": 68.86,
-        "code": "NZD"
-    },
-    "PHP&nbsp;": {
-        "rate": 2.14,
-        "code": "PHP"
-    },
-    "PLN&nbsp;": {
-        "rate": 27.01,
-        "code": "PLN"
-    },
-    "R$": {
-        "rate": 20.14,
-        "code": "BRL"
-    },
-    "RUB&nbsp;": {
-        "rate": 1.5,
-        "code": "RUB"
-    },
-    "SEK&nbsp;": {
-        "rate": 11.48,
-        "code": "SEK"
-    },
-    "£": {
-        "rate": 135.0,
-        "code": "GBP"
-    },
-    "₩": {
-        "rate": 0.1,
-        "code": "KRW"
-    },
-    "€": {
-        "rate": 120,
-        "code": "EUR"
-    },
-    "₹": {
-        "rate": 1.42,
-        "code": "INR"
-    },
-    "￥": {
-        "rate": 1.0,
-        "code": "JPY"
-    },
-    "PEN&nbsp;": {
-        "rate": 30.56,
-        "code": "PEN"
-    },
-    "ARS&nbsp;": {
-        "rate": 1.53,
-        "code": "ARS"
-    },
-    "CLP&nbsp;": {
-        "rate": 0.13,
-        "code": "CLP"
-    },
-    "NOK&nbsp;": {
-        "rate": 11.08,
-        "code": "NOK"
-    },
-    "BAM&nbsp;": {
-        "rate": 61.44,
-        "code": "BAM"
-    },
-    "SGD&nbsp;": {
-        "rate": 77.02,
-        "code": "SGD"
-    },
-    "CZK&nbsp;": {
-        "rate": 4.49,
-        "code": "CZK"
-    },
-    "ZAR&nbsp;": {
-        "rate": 6.05,
-        "code": "ZAR"
-    },
-    "RON&nbsp;": {
-        "rate": 25.91,
-        "code": "RON"
-    },
-    "BYN&nbsp;": {
-        "rate": 43.16,
-        "code": "BYN"
-    }
-};
 var canvas_type;
 var canvas_wait = {
     "max": {
