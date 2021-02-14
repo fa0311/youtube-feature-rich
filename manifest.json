@@ -23,7 +23,8 @@
             "js/lib/Chart.bundle.js",
             "js/main.js",
             "js/watch.js",
-            "js/subscriptions.js"
+            "js/subscriptions.js",
+            "js/symbols.js"
         ],
         "css": [
             "css/watch.css",
