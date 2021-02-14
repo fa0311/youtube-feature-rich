@@ -1335,13 +1335,9 @@ function setting_btn_set() {
 // アプデ確認
 function update_notify() {
     var version = "3.1.1";
+    $('#notify_message').remove();
     chrome.storage.sync.get("version", function(value) {
         if (version != value.version) {
-
-            if ($('#notify_message').html()) {
-                $("#notify_message").css("display", "none");
-            }
-
             $('ytd-live-chat-frame#chat').after('<div style="position: relative; top: -20px;" id="notify_message"><p style="font-size:14px">拡張機能がアップデートされました</p><p style="font-size:14px">設定がリセットされた可能性があります</p><a style="margin:2px;text-decoration:none;" href="https://blog.yuki0311.com/youtube-feature-rich-v1/"  target="_blank" >詳しくはこちら</a><a style="margin:2px;text-decoration:none;" id="notify_hidden_btn">非表示にする</a></div>');
             $('#notify_hidden_btn').click(function() {
                 chrome.storage.sync.set({
