@@ -1318,7 +1318,7 @@ function setting_btn_set() {
             $.Deferred(function(deferredAnim) {
                 deferredAnim.then(function() {
                     $("#setting_box").animate({
-                        "height": "300px",
+                        "height": "320px",
                         "opacity": "1"
                     }, 500);
                     $("#setting").animate({
