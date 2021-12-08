@@ -952,7 +952,7 @@ function canvas_reset() {
 
 
 
-    $(".twitter_view").remove();
+    $("#twitter_view").remove();
 
 
     one_time_flag = false;
@@ -1009,7 +1009,7 @@ function video_length_time_count() {
 
 
 
-/*コメントチェック*/
+/*動画の下部コメントチェック*/
 function comment_view() {
 
     if (menu_set[3]) {
@@ -1080,57 +1080,59 @@ function comment_view() {
 }
 
 function twitter_view(twitter_page = 0) {
-
+    /*Twitter */
     if (menu_set[4]) {
-        /*Twitter */
-        i = 0;
-        ii = 0;
-        $("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").each(function() {
-
-            if ($("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").eq(i).text().match(/\/\/twitter.com\/[^\/]+\/?$/)) {
-
-                if (twitter_page == ii) {
-                    $('#container > div#top-row').after('<div class="twitter_view" page="' + ii + '"><a data-height="400" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
-                        $("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").eq(i).text() +
-                        '></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
-                    setTimeout(twitter_load_check, 100);
-                    ii++;
-
-                    function twitter_load_check() {
-                        if ($('.twitter_view>iframe').contents().find('footer.timeline-Footer.u-cf>a.u-floatLeft').text()) {
-                            setTimeout(function() {
-                                $('.twitter_view>iframe').contents().find('footer.timeline-Footer.u-cf>a.u-floatLeft').after('<a id="twitter_next" style="position: relative;left: 20px;cursor: pointer;">次のページ</div></div>');
-                                $('.twitter_view>iframe').contents().find('footer.timeline-Footer.u-cf>a.u-floatLeft').after('<a id="twitter_reload" style="position: relative;left: 10px;cursor: pointer;">再読み込み</div></div>');
-
-                                $('.twitter_view>iframe').contents().find('a#twitter_reload').click(function() {
-                                    var twitter_page = $(".twitter_view").attr("page");
-                                    $(".twitter_view").remove();
-                                    twitter_view(twitter_page);
-                                });
-                                $('.twitter_view>iframe').contents().find('a#twitter_next').click(function() {
-                                    var twitter_page = $(".twitter_view").attr("page") + 1;
-                                    $(".twitter_view").remove();
-                                    twitter_view(twitter_page);
-                                });
-                            }, 100);
-
-                        } else {
-                            setTimeout(twitter_load_check, 500);
-                        }
-                    }
-                } else if (twitter_page > ii) {
-                    ii++;
-                }
+        function twitter_load_check() {
+            let twitter_iframe = $('#twitter_view>iframe').contents();
+            let twitter_footer = twitter_iframe.find('footer.timeline-Footer.u-cf>a.u-floatLeft');
+            if (twitter_footer.text()) {
+                setTimeout(() => {
+                    let twitter_page = $("#twitter_view").attr("page");
+                    twitter_footer.after('<a id="twitter_next" style="position: relative;left: 20px;cursor: pointer;">次のページ</div></div>');
+                    twitter_footer.after('<a id="twitter_reload" style="position: relative;left: 10px;cursor: pointer;">再読み込み</div></div>');
+                    twitter_iframe.find('a#twitter_reload').click(() => {
+                        $("#twitter_view").remove();
+                        twitter_view(twitter_page);
+                    });
+                    twitter_iframe.find('a#twitter_next').click(() => {
+                        $("#twitter_view").remove();
+                        twitter_view(parseInt(twitter_page) + 1);
+                    });
+                });
+                setTimeout(() => {
+                    twitter_iframe.find('.timeline-InformationCircle').css({
+                        "top": "0px"
+                    });
+                    twitter_iframe.find('.timeline-Header-title').css({
+                        "font-size": "16px",
+                        "line-height": "0px"
+                    });
+                    twitter_iframe.find('.timeline-Footer').css({
+                        "padding": "7px"
+                    });
+                }, 500);
+            } else {
+                setTimeout(twitter_load_check, 100);
             }
-            i++;
+        }
+
+        let twitter_page_list = [];
+        $("yt-formatted-string.content.style-scope.ytd-video-secondary-info-renderer").find("a").each((i, element) => {
+            if ($(element).text().match(/\/\/twitter.com\/[^\/]+\/?$/)) {
+                twitter_page_list.push($(element).text());
+            }
         });
-        if (twitter_page == 0) {
+        if (twitter_page_list.length == 0) {
             return;
         }
-        if (twitter_page >= ii) {
-            setTimeout(twitter_view, 500);
+        if (twitter_page_list.length < twitter_page + 1) {
+            setTimeout(twitter_view);
+            return;
         }
-
+        $('#container > div#top-row').after('<div id="twitter_view" page="' + twitter_page + '"><a data-height="520" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
+            twitter_page_list[twitter_page] +
+            '></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
+        setTimeout(twitter_load_check);
     }
 }
 
@@ -1388,6 +1390,6 @@ function dark_theme(theme_flag) {
         $('.chapter-title').removeClass('dark_theme_text');
         $('#notify_message').removeClass('dark_theme_text');
     }
-    $(".twitter_view").remove();
+    $("#twitter_view").remove();
     setTimeout(twitter_view, 500);
 }
