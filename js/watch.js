@@ -402,32 +402,30 @@ function watch_main() {
         if (Min < 10) Min = "0" + Min;
         if (Sec < 10) Sec = "0" + Sec;
 
-        function canvas_update(i, config, myLineChart, value) {
-            if (canvas_type["set"][i] == 1) {
+        function canvas_update(canvas_id, config, myLineChart, value) {
+            if (canvas_type["set"][canvas_id] == 1) {
                 config.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
                 config.data.datasets.forEach(function(dataset) {
                     dataset.data.push(value);
                 });
                 config.data.datasets.forEach(function(dataset) {
-                    while (dataset.data.length > get_chart_time(canvas_type["num"][i])) {
+                    while (dataset.data.length > get_chart_time(canvas_type["num"][canvas_id])) {
                         dataset.data.shift();
                         config.data.labels.shift();
                     }
                 });
-                myLineChart.update();
-            } else if (canvas_type["set"][i] == 2) {
-                if (canvas_wait["max"][i] - 1 <= canvas_wait["count"][i]) {
-                    canvas_wait["count"][i] = 0;
+            } else if (canvas_type["set"][canvas_id] == 2) {
+                if (canvas_wait["max"][canvas_id] - 1 <= canvas_wait["count"][canvas_id]) {
+                    canvas_wait["count"][canvas_id] = 0;
                     config.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
                     config.data.datasets.forEach(function(dataset) {
                         dataset.data.push(value);
                     });
-                    myLineChart.update();
                 } else {
-                    canvas_wait["count"][i]++;
+                    canvas_wait["count"][canvas_id]++;
                 }
                 config.data.datasets.forEach(function(dataset) {
-                    if (dataset.data.length > get_chart_time(canvas_type["num"][i]) && dataset.data.length % 2 == 1) {
+                    if (dataset.data.length > get_chart_time(canvas_type["num"][canvas_id]) && dataset.data.length % 2 == 1) {
                         ii = dataset.data.length / 2;
                         i = 1;
                         while (i <= ii) {
@@ -435,17 +433,16 @@ function watch_main() {
                             config.data.labels.splice(i, 1);
                             i++;
                         }
-                        canvas_wait["max"][i] = canvas_wait["max"][i] + canvas_wait["max"][i];
+                        canvas_wait["max"][canvas_id] = canvas_wait["max"][canvas_id] + canvas_wait["max"][canvas_id];
                     }
-                    myLineChart.update();
                 });
             } else {
                 config.data.labels.push(String(Hour + ":" + Min + ":" + Sec));
                 config.data.datasets.forEach(function(dataset) {
                     dataset.data.push(value);
                 });
-                myLineChart.update();
             }
+            myLineChart.update();
         }
 
         if (!view_count.match(/回視聴/)) {
