@@ -49,7 +49,7 @@ function subscriptions_main_set() {
         '</button>' +
         '</div>');
 
-    $('.video-search-btn').click(function () {
+    $('.video-search-btn').click(function() {
         search_text = $('.search_text').val();
         video_title_length_1 = 0;
         video_title_length_2 = 0;
@@ -58,52 +58,23 @@ function subscriptions_main_set() {
 }
 
 var search_text = "";
-var video_title_length_1, video_title_length_2;
+var video_title_length = 0;
 
 function subscriptions_video_search() {
     if (!menu_set[5]) {
         return;
     }
     if (search_text != "") {
-        let reg = RegExp(search_text);
-        if ($("a#video-title").length > video_title_length_1) {
-            video_title_length_1 = $("a#video-title").length;
-            $("a#video-title").each(function (id) {
-                if ($("a#video-title").eq(id).text().match(reg)) {
-                    $("ytd-grid-video-renderer.style-scope.ytd-grid-renderer").eq(id).css('display', 'block');
-                } else {
-                    $("ytd-grid-video-renderer.style-scope.ytd-grid-renderer").eq(id).css('display', 'none');
-
-                }
-            });
-        }
-
-        if ($("yt-formatted-string.style-scope.ytd-video-renderer").length > video_title_length_2) {
-            video_title_length_2 = $("yt-formatted-string.style-scope.ytd-video-renderer").length;
-            $("yt-formatted-string.style-scope.ytd-video-renderer").each(function (id) {
-                if ($("yt-formatted-string.style-scope.ytd-video-renderer").eq(id).text().match(reg)) {
-                    $("ytd-item-section-renderer.style-scope.ytd-section-list-renderer").eq(id).css('display', 'block');
-                } else {
-                    $("ytd-item-section-renderer.style-scope.ytd-section-list-renderer").eq(id).css('display', 'none');
-
-                }
-            });
+        while ($("a#video-title").length > video_title_length) {
+            if ($("a#video-title").eq(video_title_length).text().indexOf(search_text) != -1) {
+                $("a#video-title").eq(video_title_length).parents("ytd-grid-video-renderer.style-scope.ytd-grid-renderer").css('display', 'block');
+            } else {
+                $("a#video-title").eq(video_title_length).parents("ytd-grid-video-renderer.style-scope.ytd-grid-renderer").css('display', 'none');
+            }
+            video_title_length++;
         }
     }
 }
-/*
-function subscriptions_main() {
-    $("div#title-container").each(function (id) {
-        if ($('div#title-container').eq(id).find('#re_search_btn').length == 0) {
-            $('div#title-container').eq(id).append('<a id="re_search_btn"><p style="font-size:10px">検索結果を反映する</p><a>');
-            $('div#title-container').eq(id).find('#re_search_btn').click(function () {
-                subscriptions_video_search();
-            });
-        }
-    });
-
-}
-*/
 
 function subscriptions_reset() {
     $("#search-box").remove();
