@@ -1014,26 +1014,25 @@ function comment_view() {
 
     if (menu_set[3]) {
 
-        i = 0;
-        max_time = 0;
-        $(".ytp-progress-bar-padding").find(".chapter").each(function() {
-            time = Number($(".ytp-progress-bar-padding").find(".chapter").eq(i).attr("time"));
+        let max_time = 0;
+        $(".ytp-progress-bar-padding").find(".chapter").each((i, element) => {
+            time = Number($(element).attr("time"));
             if (time < video_length_time(true) + 2) {
                 if (time > max_time) {
                     max_time = time;
                 }
             }
-
-            i++;
         });
 
-        if ($("div[time='" + max_time + "']").attr("title") != null) {
-            if ($(".chapter-title").find(p).text() != $("div[time='" + max_time + "']").attr("title")) {
-                $(".chapter-title").remove();
+        if ($("div[time='" + max_time + "']").attr("title") == null) {
+            $(".chapter-title").remove();
+        } else if ($(".chapter-title").find("p").text() != $("div[time='" + max_time + "']").attr("title")) {
+            $(".chapter-title").remove();
+            if (max_time > 0) {
                 $("ytd-video-primary-info-renderer.style-scope.ytd-watch-flexy").prepend('<div class="chapter-title"><p>>' + $("div[time='" + max_time + "']").attr("title") + '</p></div>');
-                if (set_change_theme == 1) {
-                    dark_theme(true);
-                }
+            }
+            if (set_change_theme == 1) {
+                dark_theme(true);
             }
         }
 
