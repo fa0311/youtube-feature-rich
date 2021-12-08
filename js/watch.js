@@ -1036,120 +1036,45 @@ function comment_view() {
                 }
             }
         }
+
+        function import_btn_click_set(comment) {
+            let author = comment.parent().parent().parent().find("div#header-author");
+            author.find('a').click(() => {
+                comment.find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each((i, element) => {
+                    let comment_str = $(element);
+                    if (comment_str.html() != null) {
+                        url = comment_str.attr("href");
+                        var time = /(\d+)s$/.exec(url)[1];
+                        left = (time / video_length_time()) * 100;
+                        left = left + "%";
+                        $(".ytp-progress-bar-padding").append('<div class="chapter" title="' + comment_str.next().text() + '" time="' + time + '" style="left:' + left + ';"><div class="arrow">▼</div></div>');
+                        author.find("#import_btn").css("display", "none");
+                        chapter_arrow_btn_hover_set(comment_str.next().text());
+                    }
+                });
+            });
+        }
+
+        function chapter_arrow_btn_hover_set(name) {
+            $('.ytp-progress-bar-padding').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(() => {
+                $(".ytp-left-controls").append('<span class="chapter-name">' + name + '</span>');
+            }, () => {
+                $(".ytp-left-controls").find('.chapter-name').remove();
+            });
+        }
+
         if ($("yt-formatted-string#content-text").length != content_text_length) {
             content_text_length = $("yt-formatted-string#content-text").length;
-
-            i = 0;
-            $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").each(function() {
-                if ($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(0).html() != null) {
-
-                    if ($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).parent().parent().parent().find("div#header-author").find("#import_btn").html() == null) {
-
-
-
-                        $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).parent().parent().parent().find("div#header-author").append('<a class="yt-simple-endpoint style-scope yt-formatted-string" id="import_btn">インポート</a>');
-                        import_btn_click_set(i);
-
-                        function import_btn_click_set(i) {
-                            $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).parent().parent().parent().find("div#header-author").find('a').click(
-                                function() {
-                                    ii = 0;
-                                    $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function() {
-                                        if ($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(ii).html() != null) {
-                                            url = $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(ii).attr("href");
-                                            var time = /(\d+)s$/.exec(url)[1];
-                                            left = (time / video_length_time()) * 100;
-                                            left = left + "%";
-                                            $(".ytp-progress-bar-padding").append('<div class="chapter" title="' + $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(ii).next().text() + '" time="' + time + '" style="left:' + left + ';"><div class="arrow">▼</div></div>');
-
-                                            $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).parent().parent().parent().find("div#header-author").find("#import_btn").css("display", "none");
-                                            chapter_arrow_btn_hover_set($("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(i).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(ii).next().text());
-
-                                            function chapter_arrow_btn_hover_set(name) {
-                                                $('.ytp-progress-bar-padding').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(
-                                                    function() {
-                                                        $(".ytp-left-controls").append('<span class="chapter-name">' + name + '</span>');
-                                                    },
-                                                    function() {
-                                                        $(".ytp-left-controls").find('.chapter-name').remove();
-                                                    }
-                                                );
-                                            }
-                                        }
-                                        ii++;
-                                    });
-                                });
-                        }
+            let comments = $("ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text");
+            comments.each((i, element) => {
+                let comment = $(element);
+                if (comment.find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(0).html() != null) {
+                    let author = comment.parent().parent().parent().find("div#header-author");
+                    if (author.find("#import_btn").html() == null) {
+                        author.append('<a class="yt-simple-endpoint style-scope yt-formatted-string" id="import_btn">インポート</a>');
+                        import_btn_click_set(comment);
                     }
                 }
-
-                ii = 0;
-
-
-                $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").each(function() {
-                    if ($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(0).html() != null) {
-                        if ($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).parent().parent().parent().find("div#header-author").find("#import_btn").html() == null) {
-                            iii = 0;
-                            flag = false;
-                            $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function() {
-
-                                url = $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).attr("href");
-                                if (url != null) {
-                                    time = /(\d+)s$/.exec(url)[1];
-                                    if (time != null) {
-                                        flag = true;
-                                    }
-                                }
-                                iii++;
-                            });
-                            if (flag == true) {
-                                $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).parent().parent().parent().find("div#header-author").append('<a class="yt-simple-endpoint style-scope yt-formatted-string" id="import_btn" style="font-size:10px;">インポート</a>');
-
-
-                                import_btn_click_set(i, ii);
-                            }
-
-                            function import_btn_click_set(i, ii) {
-
-                                $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).parent().parent().parent().find("div#header-author").find('a#import_btn').click(
-
-                                    function() {
-                                        iii = 0;
-                                        $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").each(function() {
-
-                                            if ($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).html() != null) {
-
-
-
-                                                url = $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).attr("href");
-                                                time = /(\d+)s$/.exec(url)[1];
-                                                left = (time / video_length_time()) * 100;
-                                                left = left + "%";
-                                                $(".ytp-progress-bar-padding").append('<div class="chapter" title="' + $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).next().text() + '" time="' + time + '" style="left:' + left + ';"><div class="arrow">▼</div></div>');
-
-                                                $("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).parent().parent().parent().find("div#header-author").find("#import_btn").css("display", "none");
-                                                chapter_arrow_btn_hover_set($("ytd-comment-renderer#comment").eq(i).parent().find("ytd-comment-renderer.style-scope.ytd-comment-replies-renderer>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text").eq(ii).find("a.yt-simple-endpoint.style-scope.yt-formatted-string").eq(iii).next().text());
-
-                                                function chapter_arrow_btn_hover_set(name) {
-                                                    $('.ytp-progress-bar-padding').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(
-                                                        function() {
-                                                            $(".ytp-left-controls").append('<span class="chapter-name">' + name + '</span>');
-                                                        },
-                                                        function() {
-                                                            $(".ytp-left-controls").find('.chapter-name').remove();
-                                                        }
-                                                    );
-                                                }
-                                            }
-                                            iii++;
-                                        });
-                                    });
-                            }
-                        }
-                    }
-                    ii++;
-                });
-                i++;
             });
         }
     }
