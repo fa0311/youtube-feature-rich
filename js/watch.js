@@ -908,10 +908,10 @@ function comment_get() {
     /*配信スパチャ */
     i = -1;
     while (true) {
-        last_superchat = $('#chatframe').contents().find('div#purchase-amount').eq(i).html();
+        last_superchat = $('#chatframe').contents().find('div#purchase-amount').eq(i).find("yt-formatted-string").html();
         last_superchat_id = $('#chatframe').contents().find('yt-live-chat-paid-message-renderer').eq(i).attr('id');
 
-        if (last_superchat_id == null) {
+        if (last_superchat_id == undefined) {
             break;
         }
         if (last_superchat_id == last_get_superchat_id) {
@@ -922,7 +922,7 @@ function comment_get() {
         superchat = reg.exec(last_superchat);
         currency = superchat[1];
         amount = parseFloat(superchat[2].replace(/,/, ''));
-        superchat_count = Math.round((superchat_count + calc_superchat_jpy(currency, amount)) * 100) / 100;
+        superchat_count = (Math.round(calc_superchat_jpy(currency, amount) * 100) / 100) + superchat_count;
         i--;
     }
     last_get_superchat_id = $('#chatframe').contents().find('yt-live-chat-paid-message-renderer').eq(-1).attr('id');
