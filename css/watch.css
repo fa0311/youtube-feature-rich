@@ -111,9 +111,10 @@ canvas.display_none {
 
 /*Twitter*/
 
-.twitter_view {
+#twitter_view {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    height: 500px;
     max-width: 660px;
 }

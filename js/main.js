@@ -113,10 +113,6 @@ var message_count = 0,
 var canvas_flag = {},
     canvas_height = {},
     canvas_type = {},
-    canvas_wait = {
-        "max": {},
-        "count": {}
-    },
     content_text_length, video_now_time_count, video_time_get_last;
 var set_change_wait_num, set_change_theme, set_change_borderColor;
 var one_time_flag = false;
