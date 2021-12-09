@@ -490,8 +490,8 @@ function watch_main() {
         }
         /*グラフ処理 */
 
-        canvas_update("4", config4, window.myLineChart4, superchat_count);
-        canvas_update("5", config5, window.myLineChart5, message_count);
+        canvas_update("4", config4, window.myLineChart4, message_count);
+        canvas_update("5", config5, window.myLineChart5, superchat_count);
 
         view_count_plus_num++;
     }
