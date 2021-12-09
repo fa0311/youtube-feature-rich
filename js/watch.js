@@ -914,7 +914,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-    var version = "3.2.0";
+    var version = "3.2.1";
     $('#notify_message').remove();
     chrome.storage.sync.get("version", function(value) {
         if (version != value.version) {
