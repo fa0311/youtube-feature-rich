@@ -730,9 +730,22 @@ function twitter_view(twitter_page = 0) {
         function twitter_load_check() {
             let twitter_iframe = $('#twitter_view>iframe').contents();
             let twitter_footer = twitter_iframe.find('footer.timeline-Footer.u-cf>a.u-floatLeft');
-            if (twitter_footer.text()) {
+            if (twitter_iframe.find('.timeline-Viewport').height() < 500) {
                 setTimeout(() => {
                     let twitter_page = $("#twitter_view").attr("page");
+                    twitter_iframe.find('.timeline-InformationCircle').css({
+                        "top": "0px"
+                    });
+                    twitter_iframe.find('.timeline-Header-title').css({
+                        "font-size": "16px",
+                        "line-height": "0px"
+                    });
+                    twitter_iframe.find('.timeline-Footer').css({
+                        "padding": "7px"
+                    });
+                    twitter_iframe.find('.timeline-Viewport').css({
+                        "height": "415px"
+                    });
                     twitter_footer.after('<a id="twitter_next" style="position: relative;left: 20px;cursor: pointer;">次のページ</div></div>');
                     twitter_footer.after('<a id="twitter_reload" style="position: relative;left: 10px;cursor: pointer;">再読み込み</div></div>');
                     twitter_iframe.find('a#twitter_reload').click(() => {
@@ -745,17 +758,15 @@ function twitter_view(twitter_page = 0) {
                     });
                 });
                 setTimeout(() => {
-                    twitter_iframe.find('.timeline-InformationCircle').css({
-                        "top": "0px"
+                    twitter_iframe.find('.timeline-Viewport').css({
+                        "height": "415px"
                     });
-                    twitter_iframe.find('.timeline-Header-title').css({
-                        "font-size": "16px",
-                        "line-height": "0px"
+                }, 200);
+                setTimeout(() => {
+                    twitter_iframe.find('.timeline-Viewport').css({
+                        "height": "415px"
                     });
-                    twitter_iframe.find('.timeline-Footer').css({
-                        "padding": "7px"
-                    });
-                }, 500);
+                }, 1000);
             } else {
                 setTimeout(twitter_load_check, 100);
             }
