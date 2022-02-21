@@ -688,6 +688,7 @@ function comment_view() {
                     let comment_str = $(element);
                     if (comment_str.html() != null) {
                         url = comment_str.attr("href");
+                        if (/(\d+)s$/.exec(url) == null) return;
                         var time = /(\d+)s$/.exec(url)[1];
                         left = (time / video_length_time()) * 100;
                         left = left + "%";
