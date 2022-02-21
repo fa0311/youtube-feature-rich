@@ -34,8 +34,9 @@ canvas.display_none {
 
 .chapter>.arrow {
     position: relative;
-    top: 5px;
+    top: -10px;
     right: 7px;
+    z-index: 9999;
     cursor: pointer;
 }
 
