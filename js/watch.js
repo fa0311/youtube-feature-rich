@@ -786,7 +786,7 @@ function twitter_view(twitter_page = 0) {
             setTimeout(twitter_view);
             return;
         }
-        $('#container > div#top-row').after('<div id="twitter_view" page="' + twitter_page + '"><a data-height="520" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
+        $('#above-the-fold').after('<div id="twitter_view" page="' + twitter_page + '"><a data-height="520" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
             twitter_page_list[twitter_page] +
             '></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
         setTimeout(twitter_load_check);
