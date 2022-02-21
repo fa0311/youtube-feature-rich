@@ -490,8 +490,8 @@ function watch_main() {
         }
         /*グラフ処理 */
 
-        canvas_update("4", config4, window.myLineChart4, superchat_count);
-        canvas_update("5", config5, window.myLineChart5, message_count);
+        canvas_update("4", config4, window.myLineChart4, message_count);
+        canvas_update("5", config5, window.myLineChart5, superchat_count);
 
         view_count_plus_num++;
     }
@@ -588,7 +588,7 @@ function canvas_reset() {
         $(".youtube_live_box").remove();
     }
 
-    $(".ytp-progress-bar-padding").empty();
+    $(".ytp-chapters-container").empty();
     $(".chapter-title").remove();
 
     $("a#import_btn").each(function() {
@@ -660,7 +660,7 @@ function comment_view() {
     if (menu_set[3]) {
 
         let max_time = 0;
-        $(".ytp-progress-bar-padding").find(".chapter").each((i, element) => {
+        $(".ytp-chapters-container").find(".chapter").each((i, element) => {
             time = Number($(element).attr("time"));
             if (time < video_length_time(true) + 2) {
                 if (time > max_time) {
@@ -688,10 +688,11 @@ function comment_view() {
                     let comment_str = $(element);
                     if (comment_str.html() != null) {
                         url = comment_str.attr("href");
+                        if (/(\d+)s$/.exec(url) == null) return;
                         var time = /(\d+)s$/.exec(url)[1];
                         left = (time / video_length_time()) * 100;
                         left = left + "%";
-                        $(".ytp-progress-bar-padding").append('<div class="chapter" title="' + comment_str.next().text() + '" time="' + time + '" style="left:' + left + ';"><div class="arrow">▼</div></div>');
+                        $(".ytp-chapters-container").append('<div class="chapter" title="' + comment_str.next().text() + '" time="' + time + '" style="left:' + left + ';"><div class="arrow">▼</div></div>');
                         author.find("#import_btn").css("display", "none");
                         chapter_arrow_btn_hover_set(comment_str.next().text());
                     }
@@ -700,7 +701,7 @@ function comment_view() {
         }
 
         function chapter_arrow_btn_hover_set(name) {
-            $('.ytp-progress-bar-padding').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(() => {
+            $('.ytp-chapters-container').find('.chapter').eq($('.chapter').children().length - 1).find(".arrow").hover(() => {
                 $(".ytp-left-controls").append('<span class="chapter-name">' + name + '</span>');
             }, () => {
                 $(".ytp-left-controls").find('.chapter-name').remove();
@@ -730,9 +731,22 @@ function twitter_view(twitter_page = 0) {
         function twitter_load_check() {
             let twitter_iframe = $('#twitter_view>iframe').contents();
             let twitter_footer = twitter_iframe.find('footer.timeline-Footer.u-cf>a.u-floatLeft');
-            if (twitter_footer.text()) {
+            if (twitter_iframe.find('.timeline-Viewport').height() < 500) {
                 setTimeout(() => {
                     let twitter_page = $("#twitter_view").attr("page");
+                    twitter_iframe.find('.timeline-InformationCircle').css({
+                        "top": "0px"
+                    });
+                    twitter_iframe.find('.timeline-Header-title').css({
+                        "font-size": "16px",
+                        "line-height": "0px"
+                    });
+                    twitter_iframe.find('.timeline-Footer').css({
+                        "padding": "7px"
+                    });
+                    twitter_iframe.find('.timeline-Viewport').css({
+                        "height": "415px"
+                    });
                     twitter_footer.after('<a id="twitter_next" style="position: relative;left: 20px;cursor: pointer;">次のページ</div></div>');
                     twitter_footer.after('<a id="twitter_reload" style="position: relative;left: 10px;cursor: pointer;">再読み込み</div></div>');
                     twitter_iframe.find('a#twitter_reload').click(() => {
@@ -745,17 +759,15 @@ function twitter_view(twitter_page = 0) {
                     });
                 });
                 setTimeout(() => {
-                    twitter_iframe.find('.timeline-InformationCircle').css({
-                        "top": "0px"
+                    twitter_iframe.find('.timeline-Viewport').css({
+                        "height": "415px"
                     });
-                    twitter_iframe.find('.timeline-Header-title').css({
-                        "font-size": "16px",
-                        "line-height": "0px"
+                }, 200);
+                setTimeout(() => {
+                    twitter_iframe.find('.timeline-Viewport').css({
+                        "height": "415px"
                     });
-                    twitter_iframe.find('.timeline-Footer').css({
-                        "padding": "7px"
-                    });
-                }, 500);
+                }, 1000);
             } else {
                 setTimeout(twitter_load_check, 100);
             }
@@ -774,7 +786,7 @@ function twitter_view(twitter_page = 0) {
             setTimeout(twitter_view);
             return;
         }
-        $('#container > div#top-row').after('<div id="twitter_view" page="' + twitter_page + '"><a data-height="520" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
+        $('#above-the-fold').after('<div id="twitter_view" page="' + twitter_page + '"><a data-height="520" data-theme="' + get_theme() + '" class="twitter-timeline" href=' +
             twitter_page_list[twitter_page] +
             '></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
         setTimeout(twitter_load_check);
@@ -903,7 +915,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-    var version = "3.2.0";
+    var version = "3.2.2";
     $('#notify_message').remove();
     chrome.storage.sync.get("version", function(value) {
         if (version != value.version) {
