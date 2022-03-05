@@ -108,14 +108,3 @@ canvas.display_none {
 .dark_theme_moderator>#youtube_moderator_message_box>p {
     color: #ffffff !important;
 }
-
-
-/*Twitter*/
-
-#twitter_view {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    height: 500px;
-    max-width: 660px;
-}

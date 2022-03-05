@@ -25,7 +25,6 @@ function add_setting_menu() {
             '<p><label for="menu-setting1">配信グラフの表示機能</label><input type="checkbox" id="menu-setting1"></p>' +
             '<p><label for="menu-setting2">モデレーターメッセージのピックアップ機能</label><input type="checkbox" id="menu-setting2"></p>' +
             '<p><label for="menu-setting3">コメント欄のタイムスタンプのインポート機能</label><input type="checkbox" id="menu-setting3"></p>' +
-            '<p><label for="menu-setting4">概要欄にtwitterを埋め込む機能</label><input type="checkbox" id="menu-setting4"></p>' +
             '<p><label for="menu-setting5">登録チャンネルの検索機能</splabelan><input type="checkbox" id="menu-setting5"></p>' +
             '<p>ページをリロードすると反映します</p>' +
             '<button type="button" style="margin:10px 10px 0 0;" id="menu-save">設定を保存</button>' +
