@@ -588,7 +588,7 @@ function canvas_reset() {
         $(".youtube_live_box").remove();
     }
 
-    $(".ytp-chapters-container").empty();
+    $(".ytp-chapters-container").find(".chapter").empty();
     $(".chapter-title").remove();
 
     $("a#import_btn").each(function() {
