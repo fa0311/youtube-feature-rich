@@ -1,8 +1,8 @@
 {
     "name": "YouTubeライブを快適に視聴する！！！",
     "description": "YouTubeライブを快適に視聴できるようになる多機能な拡張機能です",
-    "version": "3.2.2",
-    "manifest_version": 2,
+    "version": "3.2.3",
+    "manifest_version": 3,
     "browser_action": {
         "default_popup": "html/popup.html"
     },
