@@ -3,7 +3,7 @@
     "description": "YouTubeライブを快適に視聴できるようになる多機能な拡張機能です",
     "version": "4.0.0",
     "manifest_version": 3,
-    "browser_action": {
+    "action": {
         "default_popup": "html/popup.html"
     },
     "icons": {
