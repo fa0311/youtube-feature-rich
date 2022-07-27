@@ -1,4 +1,6 @@
 # youtube-feature-rich
+![](https://img.shields.io/chrome-web-store/users/edkjjpjoagffmeekfcjklnhgihjilcfg)
+![](https://img.shields.io/chrome-web-store/stars/edkjjpjoagffmeekfcjklnhgihjilcfg)
 
 youtube 配信の chrome 拡張機能 ver4.0.0<br>
 [詳しくはこちら](https://blog.yuki0311.com/youtube-feature-rich-v1/ "詳しくはこちら")
