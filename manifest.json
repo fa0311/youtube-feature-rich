@@ -1,7 +1,7 @@
 {
     "name": "YouTubeライブを快適に視聴する！！！",
     "description": "YouTubeライブを快適に視聴できるようになる多機能な拡張機能です",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "manifest_version": 3,
     "action": {
         "default_popup": "html/popup.html"
@@ -14,22 +14,24 @@
     "permissions": [
         "storage"
     ],
-    "content_scripts": [{
-        "matches": [
-            "https://www.youtube.com/*"
-        ],
-        "js": [
-            "js/lib/jquery-3.5.1.min.js",
-            "js/lib/Chart.bundle.min.js",
-            "js/main.js",
-            "js/watch.js",
-            "js/subscriptions.js",
-            "js/symbols.js"
-        ],
-        "css": [
-            "css/watch.css",
-            "css/subscriptions.css",
-            "css/main.css"
-        ]
-    }]
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "js": [
+                "js/lib/jquery-3.5.1.min.js",
+                "js/lib/Chart.bundle.min.js",
+                "js/main.js",
+                "js/watch.js",
+                "js/subscriptions.js",
+                "js/symbols.js"
+            ],
+            "css": [
+                "css/watch.css",
+                "css/subscriptions.css",
+                "css/main.css"
+            ]
+        }
+    ]
 }
