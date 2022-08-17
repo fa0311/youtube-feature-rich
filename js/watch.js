@@ -797,7 +797,12 @@ function comment_view() {
     }
 
     function import_btn_click_set(comment) {
-      let author = comment.parent().parent().parent().find("div#header-author");
+      let author = comment
+        .parent()
+        .parent()
+        .parent()
+        .parent()
+        .find("div#header-author");
       author.find("a").click(() => {
         comment
           .find("a.yt-simple-endpoint.style-scope.yt-formatted-string")
@@ -845,7 +850,7 @@ function comment_view() {
     if ($("yt-formatted-string#content-text").length != content_text_length) {
       content_text_length = $("yt-formatted-string#content-text").length;
       let comments = $(
-        "ytd-comment-renderer#comment>div#body>div#main>ytd-expander#expander>div#content>yt-formatted-string#content-text"
+        "ytd-comment-renderer#comment>div#body>div#main>#comment-content>ytd-expander#expander>div#content>yt-formatted-string#content-text"
       );
       comments.each((i, element) => {
         let comment = $(element);
@@ -856,6 +861,7 @@ function comment_view() {
             .html() != null
         ) {
           let author = comment
+            .parent()
             .parent()
             .parent()
             .parent()
