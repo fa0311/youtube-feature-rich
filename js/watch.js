@@ -1002,7 +1002,7 @@ function setting_btn_set() {
 
 // アプデ確認
 function update_notify() {
-  var version = "4.0.0";
+  var version = "4.0.1";
   $("#notify_message").remove();
   chrome.storage.sync.get("version", function (value) {
     if (version != value.version) {
