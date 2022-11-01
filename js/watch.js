@@ -102,12 +102,11 @@ function watch_main() {
     };
   }
   /*色々取得 */
-  var view_count = $(".view-count").html();
+  var view_count = $("span.style-scope.yt-formatted-string.bold").eq(0).html();
   var like = $(
-    "a.yt-simple-endpoint.style-scope.ytd-toggle-button-renderer > yt-formatted-string#text"
-  )
-    .eq(0)
-    .html();
+    "ytd-toggle-button-renderer.style-scope.ytd-segmented-like-dislike-button-renderer > yt-button-shape > button"
+  ).attr("aria-label");
+  var like_result = /(\d|,)+/.exec(like);
   var result = /(\d|,)+/.exec(view_count);
   /*5×12秒でリセット */
   if (view_count_plus_num >= 12) {
@@ -510,12 +509,9 @@ function watch_main() {
       view_count_plus_list[view_count_plus_num] = result;
 
       canvas_update("", config, window.myLineChart, result);
-      if (like.match(/万/)) {
-        like = like.replace(/万/g, "");
-        canvas_update("2", config2, window.myLineChart2, like * 10000);
-      } else {
-        canvas_update("2", config2, window.myLineChart2, like);
-      }
+
+      like_result = like_result[0].replace(/,/g, "");
+      canvas_update("2", config2, window.myLineChart2, like_result);
     }
     /*配信とアーカイブ */
 
