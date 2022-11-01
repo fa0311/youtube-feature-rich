@@ -1,6 +1,6 @@
 # youtube-feature-rich
 
-youtube 配信の chrome 拡張機能 ver4.0.1
+youtube 配信の chrome 拡張機能 ver4.0.2
 
 [詳しくはこちら](https://blog.yuki0311.com/youtube-feature-rich-v1/ "詳しくはこちら")
 
